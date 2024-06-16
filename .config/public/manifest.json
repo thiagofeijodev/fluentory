@@ -1,0 +1,32 @@
+{
+  "short_name": "SaaS",
+  "name": "SaaS",
+  "description": "Manage your company resources",
+  "start_url": "/",
+  "scope": "https://saas.feijo.dev/",
+  "dir": "ltr",
+  "display_override": ["window-control-overlay", "minimal-ui"],
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": ["business", "government", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Resources",
+      "url": "/",
+      "description": "SaaS: Resources"
+    },
+    {
+      "name": "Historic",
+      "url": "/?p=historic",
+      "description": "SaaS: Historic"
+    }
+  ]
+}

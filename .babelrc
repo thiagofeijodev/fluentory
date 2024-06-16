@@ -1,0 +1,27 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "@/components": "./src/components",
+          "@/functions": "./src/functions",
+          "@/contexts": "./src/contexts",
+          "@/hooks": "./src/hooks"
+        }
+      }
+    ]
+  ]
+}
