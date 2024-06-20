@@ -24,6 +24,7 @@ export const Select = React.forwardRef(
           ref={ref}
           onBlur={onBlur}
           value={value}
+          selectedOptions={[value]}
           placeholder={placeholder || 'Select an option...'}
           onOptionSelect={(_, data) => onChange(data.optionValue)}
         >
