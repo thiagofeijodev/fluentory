@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DEFAULT_PAGE, PAGES } from '../constants';
 
 export const useRoute = () => {
-  const searchParams = new URLSearchParams(document?.location?.search);
-  const pageParams = searchParams.get('p') || DEFAULT_PAGE;
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [currentPage, setCurrentPage] = useState(pageParams);
+  const [currentPage, setCurrentPage] = useState(location.pathname || DEFAULT_PAGE);
 
   const onMovePage = (page) => {
     if (!PAGES[page]) {
       console.error('unknown page');
     }
 
-    const pageName = `SaaS: ${PAGES[page]}`;
-
-    const url = new URL(location);
-    url.searchParams.set('p', page);
-
+    const pageName = `Finance: ${PAGES[page]}`;
     document.title = pageName;
-    window.history.pushState({ pageTitle: pageName }, '', url);
 
+    navigate(page);
     setCurrentPage(page);
   };
 

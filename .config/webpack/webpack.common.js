@@ -14,7 +14,18 @@ module.exports = {
       chunks: 'all',
     },
   },
-  plugins: [new webpack.ProgressPlugin()],
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new webpack.EnvironmentPlugin([
+      'API_KEY',
+      'AUTH_DOMAIN',
+      'PROJECT_ID',
+      'STORAGE_BUCKET',
+      'MESSAGING_SENDER_ID',
+      'APPID',
+      'MEASUREMENT_ID',
+    ]),
+  ],
   module: {
     rules: [
       {

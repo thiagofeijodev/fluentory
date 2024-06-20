@@ -1,9 +1,9 @@
 export const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i;
 
 export const PAGE_ENUM = {
-  resources: 'resources',
-  historic: 'historic',
-  setting: 'setting',
+  resources: '/',
+  historic: '/',
+  setting: '/setting',
 };
 
 export const PAGES = {

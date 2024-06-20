@@ -1,7 +1,10 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv');
 const common = require('./webpack.common');
+
+dotenv.config({ path: '.env.local' });
 
 module.exports = merge(
   {
@@ -17,10 +20,21 @@ module.exports = merge(
       }),
     ],
     devServer: {
+      open: true,
       port: 3001,
-      static: path.join(process.cwd(), '.config/public'),
+      static: path.join(__dirname, '..', 'public'),
       historyApiFallback: true,
       host: '0.0.0.0',
+      client: {
+        logging: 'info',
+        overlay: true,
+      },
+      compress: true,
+      open: true,
+      static: './build',
+    },
+    stats: {
+      errorDetails: true,
     },
   },
   common,

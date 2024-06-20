@@ -10,12 +10,12 @@ module.exports = merge(common, {
   mode: 'production',
   output: {
     filename: 'static/[name].[contenthash].js',
-    path: path.resolve(process.cwd(), 'docs'),
+    path: path.resolve(process.cwd(), 'build'),
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), '.config/public/index.html'),
-      filename: path.join(process.cwd(), 'docs/index.html'),
+      filename: path.join(process.cwd(), 'build/index.html'),
     }),
     new FaviconsWebpackPlugin({
       logo: path.join(process.cwd(), '.config/public/logo.png'),

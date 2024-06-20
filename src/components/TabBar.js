@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const TabBar = ({ initialValue = 'resources', onMovePage }) => {
+export const TabBar = ({ initialValue = '/', onMovePage }) => {
   const styles = useStyles();
 
   return (
@@ -37,13 +37,13 @@ export const TabBar = ({ initialValue = 'resources', onMovePage }) => {
         onTabSelect={(_, tab) => onMovePage(tab?.value)}
       >
         <Tab value={PAGE_ENUM.resources} icon={<IconClipboardText />}>
-          {PAGES.resources}
+          {PAGES[PAGE_ENUM.resources]}
         </Tab>
         <Tab value={PAGE_ENUM.historic} icon={<IconTextBulletList />}>
-          {PAGES.historic}
+          {PAGES[PAGE_ENUM.historic]}
         </Tab>
         <Tab value={PAGE_ENUM.setting} icon={<IconAppsSettings />}>
-          {PAGES.setting}
+          {PAGES[PAGE_ENUM.setting]}
         </Tab>
       </TabList>
     </div>
