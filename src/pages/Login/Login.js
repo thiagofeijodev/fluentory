@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles, Button } from '@fluentui/react-components';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 
 const useStyles = makeStyles({
   root: {
@@ -37,9 +37,29 @@ export const Login = () => {
       });
   };
 
+  const onClickFacebookLogin = () => {
+    const provider = new FacebookAuthProvider();
+
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorCode, errorMessage, email, credential);
+
+        setErrorMessage(errorMessage);
+      });
+  };
+
   return (
     <div className={styles.root}>
       <Button onClick={onClick}>Google</Button>
+      <Button onClick={onClickFacebookLogin}>Facebook</Button>
       <p>{errorMessage}</p>
     </div>
   );
