@@ -10,7 +10,7 @@ import {
   Button,
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
-import { writeNewCity } from 'contexts/utils/firebase';
+import { insertAccount } from 'db';
 import { Input } from 'components/Input';
 
 export const AddDialog = () => {
@@ -22,7 +22,7 @@ export const AddDialog = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    writeNewCity(data);
+    insertAccount(data);
     setOpen(false);
   };
 
@@ -35,7 +35,7 @@ export const AddDialog = () => {
         <DialogBody>
           <DialogTitle>Dialog title</DialogTitle>
           <DialogContent>
-            <form onSubmit={handleSubmit(writeNewCity)}>
+            <form onSubmit={handleSubmit(insertAccount)}>
               <Controller
                 control={control}
                 rules={{

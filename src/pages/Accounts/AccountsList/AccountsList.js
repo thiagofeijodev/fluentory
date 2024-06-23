@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllAccounts } from 'db';
 import { EmptyState } from 'components/EmptyState';
-import { AddDialog } from './AddDialog';
 
-export const Historic = () => {
+export const AccountsList = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -15,16 +14,17 @@ export const Historic = () => {
   }
 
   return (
-    <div>
-      <AddDialog />
-      <h1>Data from database:</h1>
+    <>
+      <h1>Accounts:</h1>
       <ul>
         {data.map((item, index) => (
-          <li key={index}>{item.name}</li>
+          <li key={index}>
+            {item.name} - {item.amount}
+          </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
-export default Historic;
+export default AccountsList;

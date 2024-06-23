@@ -2,13 +2,13 @@ export const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Ope
 
 export const PAGE_ENUM = {
   resources: '/',
-  historic: '/',
+  historic: '/accounts',
   setting: '/setting',
 };
 
 export const PAGES = {
   [PAGE_ENUM.resources]: 'Resources',
-  [PAGE_ENUM.historic]: 'Historic',
+  [PAGE_ENUM.historic]: 'Accounts',
   [PAGE_ENUM.setting]: 'Settings',
 };
 

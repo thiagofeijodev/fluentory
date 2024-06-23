@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { SplashScreen } from 'pages/SplashScreen/SplashScreen';
 
 export const PrivateLayout = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const PrivateLayout = () => {
   }, []);
 
   if (!loggedUser) {
-    return <p>lodding...</p>;
+    return <SplashScreen />;
   }
 
   return <Outlet />;
