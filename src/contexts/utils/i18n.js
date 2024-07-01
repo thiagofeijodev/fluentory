@@ -4,11 +4,13 @@ import ptBrTraslation from 'languages/ptBr.json';
 
 export const cacheKey = 'TranslationProvider';
 
+// i18next format to local use
 export const translationEnumOption = {
   en: 'English',
   ptBr: 'Portugues',
 };
 
+// local use to i18next format
 export const translationEnumReverseOption = {
   English: 'en',
   Portugues: 'ptBr',

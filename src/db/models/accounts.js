@@ -1,26 +1,27 @@
-// import { getDatabase, ref, onValue, child, push, update, query, orderByChild, equalTo } from 'firebase/database';
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
-import { query, orderBy, limit, where } from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { query, where, onSnapshot } from 'firebase/firestore';
 import { app } from '../firebase';
 
-export async function fetchAllAccounts(setData) {
+export function fetchAllAccounts(uid, onFinish) {
   const db = getFirestore(app);
 
   try {
-    const accountsRef = query(collection(db, 'accounts'), where('name', '==', 'name'));
-    const querySnapshot = await getDocs(accountsRef);
+    const accountsRef = query(collection(db, 'accounts'), where('user', '==', uid));
 
-    const data = [];
-    querySnapshot.forEach((doc) => data.push(doc.data()));
+    return onSnapshot(accountsRef, (querySnapshot) => {
+      const data = [];
+      querySnapshot.forEach((doc) => data.push(doc.data()));
 
-    setData(data);
+      onFinish(data);
+    });
   } catch (e) {
     console.error('Error fetching document: ', e);
   }
 }
 
-export async function insertAccount(data) {
+export async function insertAccount(uid, data) {
   const db = getFirestore(app);
+  data.user = uid;
 
   try {
     const docRef = await addDoc(collection(db, 'accounts'), data);

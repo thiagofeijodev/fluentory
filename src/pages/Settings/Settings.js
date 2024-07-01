@@ -3,7 +3,7 @@ import { makeStyles, Button } from '@fluentui/react-components';
 import { useTheme, themeEnumOption } from 'contexts/ThemeProvider';
 import { useLanguage, translationEnumOption } from 'contexts/TranslationProvider';
 import { Select } from 'components/Select';
-import { backupDataBase } from 'functions/backupDataBase';
+import { backupDataBase } from './utils/backupDataBase';
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 export const Settings = () => {
   const styles = useStyles();
   const { theme, onTheme } = useTheme();
-  const { t, lng, onTraslation } = useLanguage();
+  const { t, lng, onTraslationChange } = useLanguage();
 
   return (
     <div className={styles.root}>
@@ -31,7 +31,7 @@ export const Settings = () => {
       />
       <Select
         label={t('Language')}
-        onChange={onTraslation}
+        onChange={onTraslationChange}
         options={[translationEnumOption.ptBr, translationEnumOption.en]}
         value={lng}
       />

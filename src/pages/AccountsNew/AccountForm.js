@@ -1,8 +1,10 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { useLanguage } from 'contexts/TranslationProvider';
 import { Input } from 'components/Input';
 
 export const AccountForm = ({ onSubmit, form }) => {
+  const { t } = useLanguage();
   const {
     control,
     handleSubmit,
@@ -21,7 +23,7 @@ export const AccountForm = ({ onSubmit, form }) => {
         )}
         name="name"
       />
-      {errors.name && <span>This field is required</span>}
+      {errors.name && <span>{t('This field is required')}</span>}
 
       <Controller
         control={control}
@@ -39,7 +41,7 @@ export const AccountForm = ({ onSubmit, form }) => {
         )}
         name="amount"
       />
-      {errors.amount && <span>This field is required</span>}
+      {errors.amount && <span>{t('This field is required')}</span>}
     </form>
   );
 };

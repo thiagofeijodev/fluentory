@@ -23,7 +23,6 @@ const useStyles = makeStyles({
   },
   footer: {
     display: 'flex',
-    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     gap: '5px',
@@ -51,21 +50,18 @@ export const Login = () => {
     const errorCode = error.code;
     const errorMessage = error.message;
     const email = error.customData.email;
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    console.log(errorCode, errorMessage, email, credential);
+    console.log(errorCode, errorMessage, email);
 
     setErrorMessage(errorMessage);
   };
 
   const onLoginByGoogle = () => {
     const provider = new GoogleAuthProvider();
-
     signInWithPopup(auth, provider).then(onSuccess).catch(onError);
   };
 
   const onLoginByFB = () => {
     const provider = new FacebookAuthProvider();
-
     signInWithPopup(auth, provider).then(onSuccess).catch(onError);
   };
 

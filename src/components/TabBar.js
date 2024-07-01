@@ -33,7 +33,7 @@ export const TabBar = ({ initialValue = '/', onMovePage }) => {
     <div className={styles.root}>
       <TabList
         appearance="subtle"
-        defaultSelectedValue={initialValue}
+        selectedValue={initialValue}
         onTabSelect={(_, tab) => onMovePage(tab?.value)}
       >
         <Tab value={PAGE_ENUM.resources} icon={<IconClipboardText />}>

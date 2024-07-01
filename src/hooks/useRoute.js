@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { DEFAULT_PAGE, PAGES } from '../constants';
+import { PAGES } from '../constants';
 
 export const useRoute = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [currentPage, setCurrentPage] = useState(location.pathname || DEFAULT_PAGE);
+  useEffect(() => {
+    const page = location.pathname;
 
-  const onMovePage = (page) => {
     if (!PAGES[page]) {
       console.error('unknown page');
+      return;
     }
 
-    const pageName = `Finance: ${PAGES[page]}`;
+    const pageName = `Finance: ${PAGES[page] || ''}`;
     document.title = pageName;
-
-    navigate(page);
-    setCurrentPage(page);
-  };
+  }, [location.pathname]);
 
   return {
-    currentPage,
-    onMovePage,
+    currentPage: location.pathname,
+    onMovePage: navigate,
   };
 };
 

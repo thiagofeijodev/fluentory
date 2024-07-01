@@ -12,7 +12,7 @@ export const TranslationProvider = ({ children }) => {
   const { t } = useTranslation();
   const [lng, setLng] = useState(_translationEnumOption.en);
 
-  const onTraslation = (language) => {
+  const onTraslationChange = (language) => {
     setLng(language);
     localStorage.setItem(cacheKey, language);
   };
@@ -30,7 +30,7 @@ export const TranslationProvider = ({ children }) => {
   }, []);
 
   return (
-    <TranslationContext.Provider value={{ t, lng, onTraslation }}>
+    <TranslationContext.Provider value={{ t, lng, onTraslationChange }}>
       {children}
     </TranslationContext.Provider>
   );
