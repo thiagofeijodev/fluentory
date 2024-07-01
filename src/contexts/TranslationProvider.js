@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import i18n, {
   translationEnumOption as _translationEnumOption,
   translationEnumReverseOption,
@@ -8,6 +9,7 @@ import i18n, {
 const TranslationContext = createContext(null);
 
 export const TranslationProvider = ({ children }) => {
+  const { t } = useTranslation();
   const [lng, setLng] = useState(_translationEnumOption.en);
 
   const onTraslation = (language) => {
@@ -28,7 +30,7 @@ export const TranslationProvider = ({ children }) => {
   }, []);
 
   return (
-    <TranslationContext.Provider value={{ lng, onTraslation }}>
+    <TranslationContext.Provider value={{ t, lng, onTraslation }}>
       {children}
     </TranslationContext.Provider>
   );

@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useAuth } from 'contexts/AuthProvider';
 import { SplashScreen } from 'pages/SplashScreen/SplashScreen';
 
 export const PrivateLayout = () => {
   const navigate = useNavigate();
-  const [loggedUser, setLoggedUser] = useState();
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, function (user) {
-      if (!user) {
-        navigate('/login');
-        return;
-      }
+    if (!user && !isLoading) {
+      navigate('/login');
+      return;
+    }
+  }, [user, isLoading]);
 
-      setLoggedUser(user);
-    });
-  }, []);
-
-  if (!loggedUser) {
+  if (!user && isLoading) {
     return <SplashScreen />;
   }
 

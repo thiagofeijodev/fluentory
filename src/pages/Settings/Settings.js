@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { makeStyles, Button } from '@fluentui/react-components';
 import { useTheme, themeEnumOption } from 'contexts/ThemeProvider';
 import { useLanguage, translationEnumOption } from 'contexts/TranslationProvider';
@@ -20,8 +19,7 @@ const useStyles = makeStyles({
 export const Settings = () => {
   const styles = useStyles();
   const { theme, onTheme } = useTheme();
-  const { lng, onTraslation } = useLanguage();
-  const { t } = useTranslation();
+  const { t, lng, onTraslation } = useLanguage();
 
   return (
     <div className={styles.root}>

@@ -5,6 +5,7 @@ import { Accounts } from 'pages/Accounts/Accounts';
 import { Historic } from 'pages/Historic/Historic';
 import { Settings } from 'pages/Settings/Settings';
 import { Login } from 'pages/Login/Login';
+import { Create } from 'pages/Create/Create';
 import PrivateLayout from 'components/PrivateLayout';
 import TabLayout from 'components/TabLayout';
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/create',
+    element: <Create />,
   },
 ]);
 
