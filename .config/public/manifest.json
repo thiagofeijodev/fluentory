@@ -1,6 +1,6 @@
 {
-  "short_name": "iFinance",
-  "name": "iFinance",
+  "short_name": "Finance",
+  "name": "Finance",
   "description": "Control your finance",
   "start_url": "/",
   "scope": "https://finance.feijo.dev/",
@@ -19,7 +19,7 @@
   ],
   "shortcuts": [
     {
-      "name": "iFinance",
+      "name": "Finance",
       "url": "/",
       "description": "Control your finance"
     }
