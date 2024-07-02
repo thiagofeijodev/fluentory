@@ -6,6 +6,12 @@
       {
         "root": ["./src"]
       }
+    ],
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "runtime": "automatic"
+      }
     ]
   ]
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchAllAccounts } from 'db';
 import { EmptyState } from 'components/EmptyState';
 import { AddDialog } from './AddDialog';

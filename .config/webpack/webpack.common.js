@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: path.resolve(process.cwd(), 'src/index.js'),
+  entry: path.resolve(process.cwd(), 'src/index.jsx'),
   output: {
     publicPath: '/',
   },

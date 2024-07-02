@@ -1,4 +1,3 @@
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import { useLanguage } from 'contexts/TranslationProvider';
 import { Input } from 'components/Input';
