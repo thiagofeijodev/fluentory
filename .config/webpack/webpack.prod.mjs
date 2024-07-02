@@ -1,18 +1,23 @@
-const { merge } = require('webpack-merge');
-const path = require('path');
-const WebpackAssetsManifest = require('webpack-assets-manifest');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const common = require('./webpack.common');
+import path from 'path';
+import WebpackAssetsManifest from 'webpack-assets-manifest';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WorkboxPlugin from 'workbox-webpack-plugin';
+import { entry, output, resolve, optimization, plugins, module } from './webpack.common.mjs';
 
-module.exports = merge(common, {
+export default {
   mode: 'production',
+  entry,
   output: {
+    ...output,
     filename: 'static/[name].[contenthash].js',
     path: path.resolve(process.cwd(), 'build'),
   },
+  resolve,
+  optimization,
+  module,
   plugins: [
+    ...plugins,
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), '.config/public/index.html'),
       filename: path.join(process.cwd(), 'build/index.html'),
@@ -27,4 +32,4 @@ module.exports = merge(common, {
     new WebpackAssetsManifest({}),
     new WorkboxPlugin.GenerateSW(),
   ],
-});
+};
