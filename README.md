@@ -11,7 +11,7 @@
 
 `npm i`
 
-## Start a dev server to preview your app
+## Start app in dev mode
 
 `npm start`
 
