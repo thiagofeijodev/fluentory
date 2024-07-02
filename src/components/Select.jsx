@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dropdown, makeStyles, Option, useId } from '@fluentui/react-components';
+import { useLanguage } from 'contexts/TranslationProvider';
 
 const useStyles = makeStyles({
   root: {
@@ -12,7 +13,8 @@ const useStyles = makeStyles({
 
 export const Select = React.forwardRef(
   ({ onChange, onBlur, name, label, options, placeholder, value }, ref) => {
-    const dropdownId = useId('dropdown-default');
+    const { t } = useLanguage();
+    const dropdownId = useId('dropdown-field');
     const styles = useStyles();
 
     return (
@@ -25,7 +27,7 @@ export const Select = React.forwardRef(
           onBlur={onBlur}
           value={value}
           selectedOptions={[value]}
-          placeholder={placeholder || 'Select an option...'}
+          placeholder={placeholder || t('Select an option...')}
           onOptionSelect={(_, data) => onChange(data.optionValue)}
         >
           {options.map((option) => (

@@ -7,7 +7,7 @@ import { Settings } from 'pages/Settings/Settings';
 import { Login } from 'pages/Login/Login';
 import { Create } from 'pages/Create/Create';
 import PrivateLayout from 'components/PrivateLayout';
-import TabLayout from 'components/TabLayout';
+import TabsLayout from 'components/TabsLayout/TabsLayout';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: '/',
-        element: <TabLayout />,
+        element: <TabsLayout />,
         children: [
           {
             index: true,
@@ -48,8 +48,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const App = () => {
-  return <RouterProvider router={router} />;
-};
+export const App = () => <RouterProvider router={router} />;
 
 export default App;
