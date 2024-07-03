@@ -51,7 +51,7 @@ export const TabsLayout = () => {
           onTabSelect={(_, tab) => navigate(tab?.value)}
         >
           {pages.map((page) => (
-            <Tab value={page.url} icon={page.icon}>
+            <Tab key={page.url} value={page.url} icon={page.icon}>
               {page.name}
             </Tab>
           ))}

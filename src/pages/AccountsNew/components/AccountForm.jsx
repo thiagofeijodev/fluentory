@@ -19,29 +19,11 @@ export const AccountForm = ({ onSubmit, form }) => {
           required: true,
         }}
         render={({ field: { onChange, onBlur } }) => (
-          <Input label="Name" placeholder="Name" onBlur={onBlur} onChange={onChange} />
+          <Input label={t('Name')} placeholder={t('Name')} onBlur={onBlur} onChange={onChange} />
         )}
         name="name"
       />
       {errors.name && <span>{t('This field is required')}</span>}
-
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur } }) => (
-          <Input
-            type="number"
-            label="Amount"
-            placeholder="Amount"
-            onBlur={onBlur}
-            onChange={onChange}
-          />
-        )}
-        name="amount"
-      />
-      {errors.amount && <span>{t('This field is required')}</span>}
     </form>
   );
 };

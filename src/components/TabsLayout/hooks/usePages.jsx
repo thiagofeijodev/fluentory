@@ -28,7 +28,7 @@ export const usePages = () => {
   return [
     {
       url: PAGE_ENUM.resources,
-      name: t('Resources'),
+      name: t('Financial'),
       icon: <IconClipboardText />,
     },
     {

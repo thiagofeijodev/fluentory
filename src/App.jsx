@@ -2,7 +2,7 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { AccountsNew } from 'pages/AccountsNew/AccountsNew';
 import { Accounts } from 'pages/Accounts/Accounts';
-import { Historic } from 'pages/Historic/Historic';
+import { Financial } from 'pages/Financial/Financial';
 import { Settings } from 'pages/Settings/Settings';
 import { Login } from 'pages/Login/Login';
 import { Create } from 'pages/Create/Create';
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Historic />,
+            element: <Financial />,
           },
           {
             path: 'setting',

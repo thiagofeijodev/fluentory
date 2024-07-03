@@ -1,5 +1,12 @@
 {
   "Language": "Idioma",
   "Theme": "Tema",
-  "Accounts": "Contas"
+  "Accounts": "Contas",
+  "Settings": "Configurações",
+  "Financial": "Financeiro",
+  "Loading": "Carregando",
+  "Close": "Fechar",
+  "Name": "Nome",
+  "Save": "Salvar",
+  "New": "Novo"
 }

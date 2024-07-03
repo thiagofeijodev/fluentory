@@ -10,44 +10,41 @@ import {
   Button,
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
-import { insertAccount } from 'db';
+import { fetchAllAccounts, insertFinancial } from 'db';
 import { Input } from 'components/Input';
+import { useLanguage } from 'contexts/TranslationProvider';
+import Select from 'components/Select';
+import { useAuth } from 'contexts/AuthProvider';
+import useQuery from 'hooks/useQuery';
 
 export const AddDialog = () => {
-  const [open, setOpen] = React.useState(false);
+  const { t } = useLanguage();
+  const { user } = useAuth();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const [open, setOpen] = React.useState(false);
+
+  const { data: accounts } = useQuery(fetchAllAccounts, []);
+
   const onSubmit = (data) => {
-    insertAccount(data);
+    insertFinancial(user.uid, data);
     setOpen(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={(event, data) => setOpen(data.open)}>
+    <Dialog open={open} onOpenChange={(_event, data) => setOpen(data.open)}>
       <DialogTrigger disableButtonEnhancement>
-        <Button>Add</Button>
+        <Button>{t('New')}</Button>
       </DialogTrigger>
       <DialogSurface>
         <DialogBody>
-          <DialogTitle>Dialog title</DialogTitle>
+          <DialogTitle>{t('New')}</DialogTitle>
           <DialogContent>
-            <form onSubmit={handleSubmit(insertAccount)}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur } }) => (
-                  <Input label="Name" placeholder="Name" onBlur={onBlur} onChange={onChange} />
-                )}
-                name="name"
-              />
-              {errors.name && <span>This field is required</span>}
-
+            <form onSubmit={handleSubmit(insertFinancial)}>
               <Controller
                 control={control}
                 rules={{
@@ -55,24 +52,41 @@ export const AddDialog = () => {
                 }}
                 render={({ field: { onChange, onBlur } }) => (
                   <Input
-                    type="number"
-                    label="Amount"
-                    placeholder="Amount"
+                    label={t('Name')}
+                    placeholder={t('Name')}
                     onBlur={onBlur}
                     onChange={onChange}
                   />
                 )}
-                name="amount"
+                name="name"
               />
-              {errors.amount && <span>This field is required</span>}
+              {errors.name && <span>{t('This field is required')}</span>}
+
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Select
+                    label={t('Account')}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    options={accounts.map((d) => d.name)}
+                    value={value || ''}
+                  />
+                )}
+                name="account"
+              />
+              {errors.account && <span>{t('This field is required')}</span>}
             </form>
           </DialogContent>
           <DialogActions>
             <DialogTrigger disableButtonEnhancement>
-              <Button appearance="secondary">Close</Button>
+              <Button appearance="secondary">{t('Close')}</Button>
             </DialogTrigger>
             <Button appearance="primary" onClick={handleSubmit(onSubmit)}>
-              Do Something
+              {t('Save')}
             </Button>
           </DialogActions>
         </DialogBody>
