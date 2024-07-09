@@ -1,11 +1,14 @@
 {
+  "id": "dev.feijo.finance",
   "short_name": "Finance",
   "name": "Finance",
   "description": "Control your finance",
   "start_url": "/",
   "scope": "https://finance.feijo.dev/",
   "dir": "ltr",
-  "display_override": ["window-control-overlay", "minimal-ui"],
+  "orientation": "any",
+  "lang": "en-US",
+  "display_override": ["minimal-ui", "window-controls-overlay"],
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
@@ -21,6 +24,11 @@
     {
       "name": "Finance",
       "url": "/",
+      "description": "Control your finance"
+    },
+    {
+      "name": "Finance: Accounts",
+      "url": "/accounts",
       "description": "Control your finance"
     }
   ]
