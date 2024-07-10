@@ -6,7 +6,7 @@
     "start": "cd ./apps/web && npm run dev",
     "build": "cd ./apps/web && npm run build",
     "test": "echo 1",
-    "lint": "eslint src apps --max-warnings 0",
+    "lint": "eslint src apps/web --max-warnings 0",
     "prepare": "husky install"
   },
   "peerDependencies": {
