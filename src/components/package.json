@@ -1,0 +1,14 @@
+{
+  "name": "finance-components",
+  "version": "0.1.0",
+  "private": true,
+  "peerDependencies": {
+    "@fluentui/react-components": "^9.53.0",
+    "@fluentui/react-icons": "^2.0.240",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.5",
+    "finance-hooks": "workspace:*",
+    "finance-contexts": "workspace:*"
+  }
+}

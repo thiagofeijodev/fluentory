@@ -1,0 +1,9 @@
+{
+  "name": "finance-hooks",
+  "version": "0.1.0",
+  "private": true,
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "finance-contexts": "workspace:*"
+  }
+}

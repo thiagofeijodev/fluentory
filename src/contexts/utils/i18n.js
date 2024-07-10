@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import ptBrTraslation from 'languages/ptBr.json';
+import ptBrTraslation from '../languages/ptBr.json';
 
 export const cacheKey = 'TranslationProvider';
 

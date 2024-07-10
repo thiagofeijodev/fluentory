@@ -13,6 +13,9 @@ export default [
         process: true,
       },
       parser: babelParser,
+      parserOptions: {
+        requireConfigFile: false,
+      },
     },
     ignores: ['.config/*'],
   },

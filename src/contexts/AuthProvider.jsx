@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getLogin } from 'finance-db';
 
 const AuthContext = createContext(null);
 
@@ -8,8 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, function (user) {
+    getLogin(function (user) {
       setIsLoading(false);
       if (!user) {
         return;
