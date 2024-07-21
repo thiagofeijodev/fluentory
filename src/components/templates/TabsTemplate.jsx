@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, Tab, TabList } from '@fluentui/react-components';
 
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i;
-
 const isMobile = IS_MOBILE.test(navigator.userAgent);
 
 const useStyles = makeStyles({
