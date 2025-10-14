@@ -10,10 +10,10 @@ import {
   Button,
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
-import { Input } from 'finance-components/atoms/Input';
-import { insertWord } from 'finance-db';
-import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { useAuth } from 'finance-contexts/AuthProvider';
+import { Input } from '@tfr/components/atoms/Input';
+import { insertWord } from '@tfr/db';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { useAuth } from '@tfr/contexts/AuthProvider';
 
 export const InsertWordDialog = () => {
   const { t } = useLanguage();

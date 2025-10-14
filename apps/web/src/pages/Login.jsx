@@ -7,11 +7,11 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithEmailAndPassword,
-} from 'finance-db';
-import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { LoginTemplate } from 'finance-components/templates/LoginTemplate';
-import { Button } from 'finance-components/atoms/Button';
-import LoginForm from 'finance-components/organisms/LoginForm';
+} from '@tfr/db';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { LoginTemplate } from '@tfr/components/templates/LoginTemplate';
+import { Button } from '@tfr/components/atoms/Button';
+import LoginForm from '@tfr/components/organisms/LoginForm';
 
 export const Login = () => {
   const { t } = useLanguage();

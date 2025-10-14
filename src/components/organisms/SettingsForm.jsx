@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useTheme, themeEnumOption } from 'finance-contexts/ThemeProvider';
-import { useLanguage, translationEnumOption } from 'finance-contexts/TranslationProvider';
-import { Select } from 'finance-components/atoms/Select';
+import { useTheme, themeEnumOption } from '@tfr/contexts/ThemeProvider';
+import { useLanguage, translationEnumOption } from '@tfr/contexts/TranslationProvider';
+import { Select } from '@tfr/components/atoms/Select';
 
 export const SettingsForm = () => {
   const { theme, onTheme } = useTheme();

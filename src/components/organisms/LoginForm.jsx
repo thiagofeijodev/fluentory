@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Input } from 'finance-components/atoms/Input';
-import { useLanguage } from 'finance-contexts/TranslationProvider';
+import { Input } from '@tfr/components/atoms/Input';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
 
 export const LoginForm = ({ onSubmit, form, children }) => {
   const { t } = useLanguage();

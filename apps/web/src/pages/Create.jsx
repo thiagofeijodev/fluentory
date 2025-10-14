@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from 'finance-db';
-import { Button } from 'finance-components/atoms/Button';
-import CreateForm from 'finance-components/organisms/CreateForm';
-import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { CreateTemplate } from 'finance-components/templates/CreateTemplate';
+import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '@tfr/db';
+import { Button } from '@tfr/components/atoms/Button';
+import CreateForm from '@tfr/components/organisms/CreateForm';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { CreateTemplate } from '@tfr/components/templates/CreateTemplate';
 
 export const Create = () => {
   const { t } = useLanguage();

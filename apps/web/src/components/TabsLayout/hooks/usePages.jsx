@@ -1,5 +1,5 @@
-import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { IconClipboardText, IconAppsSettings } from 'finance-components/atoms/Icons';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { IconClipboardText, IconAppsSettings } from '@tfr/components/atoms/Icons';
 
 export const PAGE_ENUM = {
   resources: '/',

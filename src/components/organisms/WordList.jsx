@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles, Spinner } from '@fluentui/react-components';
-import { fetchAllWords } from 'finance-db';
-import { EmptyStateTemplate } from 'finance-components/templates/EmptyStateTemplate';
-import { CardItemList } from 'finance-components/atoms/CardItemList';
-import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { useQuery } from 'finance-hooks/useQuery';
+import { fetchAllWords } from '@tfr/db';
+import { EmptyStateTemplate } from '@tfr/components/templates/EmptyStateTemplate';
+import { CardItemList } from '@tfr/components/atoms/CardItemList';
+import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { useQuery } from '@tfr/hooks/useQuery';
 
 const useStyles = makeStyles({
   ul: {

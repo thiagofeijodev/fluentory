@@ -1,5 +1,5 @@
 {
-  "name": "finance-components",
+  "name": "@tfr/components",
   "version": "0.1.0",
   "private": true,
   "peerDependencies": {
@@ -8,7 +8,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.5",
-    "finance-hooks": "workspace:*",
-    "finance-contexts": "workspace:*"
+    "@tfr/hooks": "workspace:*",
+    "@tfr/contexts": "workspace:*"
   }
 }

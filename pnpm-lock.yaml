@@ -18,19 +18,19 @@ overrides:
 importers:
   .:
     dependencies:
-      finance-components:
+      '@tfr/components':
         specifier: workspace:*
         version: link:src/components
-      finance-contexts:
+      '@tfr/contexts':
         specifier: workspace:*
         version: link:src/contexts
-      finance-db:
+      '@tfr/db':
         specifier: workspace:*
         version: link:src/db
-      finance-hooks:
+      '@tfr/hooks':
         specifier: workspace:*
         version: link:src/hooks
-      finance-web:
+      '@tfr/web':
         specifier: workspace:*
         version: link:apps/web
     optionalDependencies:
@@ -43,6 +43,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^16.0.0
         version: 16.2.4
+      '@eslint/js':
+        specifier: ^9.37.0
+        version: 9.37.0
       '@testing-library/react':
         specifier: ^15.0.7
         version: 15.0.7(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -67,16 +70,16 @@ importers:
 
   apps/web:
     dependencies:
-      finance-components:
+      '@tfr/components':
         specifier: workspace:*
         version: link:../../src/components
-      finance-contexts:
+      '@tfr/contexts':
         specifier: workspace:*
         version: link:../../src/contexts
-      finance-db:
+      '@tfr/db':
         specifier: workspace:*
         version: link:../../src/db
-      finance-hooks:
+      '@tfr/hooks':
         specifier: workspace:*
         version: link:../../src/hooks
       react:
@@ -119,10 +122,10 @@ importers:
       '@fluentui/react-icons':
         specifier: ^2.0.240
         version: 2.0.247(react@18.2.0)
-      finance-contexts:
+      '@tfr/contexts':
         specifier: workspace:*
         version: link:../contexts
-      finance-hooks:
+      '@tfr/hooks':
         specifier: workspace:*
         version: link:../hooks
       react:
@@ -140,7 +143,7 @@ importers:
       '@fluentui/react-components':
         specifier: ^9.53.0
         version: 9.54.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)
-      finance-db:
+      '@tfr/db':
         specifier: workspace:*
         version: link:../db
       i18next:
@@ -164,7 +167,7 @@ importers:
 
   src/hooks:
     dependencies:
-      finance-contexts:
+      '@tfr/contexts':
         specifier: workspace:*
         version: link:../contexts
       react:
@@ -1467,6 +1470,13 @@ packages:
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
+  '@eslint/js@9.37.0':
+    resolution:
+      {
+        integrity: sha512-jaS+NJ+hximswBG6pjNX0uEJZkrT0zwpVi3BA3vX22aFGjJjmgSTSmPpZCRKmoBL5VY/M6p0xsSJx7rk7sy5gg==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+
   '@eslint/js@9.6.0':
     resolution:
       {
@@ -2131,6 +2141,7 @@ packages:
       {
         integrity: sha512-8JQPIWCB4u9DVXVtWpDbdEeEck2VgK2RgoYq8M1bF6rwOAAd1Vqkxlqlply3gryYYvnsy2cdTki8bntfiwhbzQ==,
       }
+    deprecated: This package has been deprecated. Please migrate to @fluentui/react-motion
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -2496,6 +2507,7 @@ packages:
       {
         integrity: sha512-1RzGHX4/4oYJOnnjD+5HM8iOMVOxG5435PFI8BOZCvCJ2jj/krMixv9jrL5RB2KiDt4Xm+gPUDw7trPcx+XCtA==,
       }
+    deprecated: Deprecating react-virtualizer in Fluent core - migrating to fluentui-contrib repo for stable release
     peerDependencies:
       '@types/react': '>=16.14.0 <19.0.0'
       '@types/react-dom': '>=16.9.0 <19.0.0'
@@ -6025,6 +6037,7 @@ packages:
         integrity: sha512-GEazpTWwTZaEQ9RhL7Nyz0WwqilbqgLahDM3D0hxWwmVDI52nXEybHqiN6/elwpkJBhcuj+WbBu+QfT0uhPGfQ==,
       }
     engines: { node: '>= 8' }
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   picocolors@1.0.1:
     resolution:
@@ -6657,6 +6670,7 @@ packages:
         integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==,
       }
     engines: { node: '>= 8' }
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   sourcemap-codec@1.4.8:
     resolution:
@@ -8476,6 +8490,9 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    optional: true
+
+  '@eslint/js@9.37.0':
     optional: true
 
   '@eslint/js@9.6.0':

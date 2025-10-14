@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuth } from 'finance-contexts/AuthProvider';
+import { useAuth } from '@tfr/contexts/AuthProvider';
 
 export const useAuthTest = (goToLogin) => {
   const { user, isLoading } = useAuth();
