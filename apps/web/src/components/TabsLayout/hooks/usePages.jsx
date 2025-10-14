@@ -1,9 +1,5 @@
 import { useLanguage } from 'finance-contexts/TranslationProvider';
-import {
-  IconClipboardText,
-  IconTextBulletList,
-  IconAppsSettings,
-} from 'finance-components/atoms/Icons';
+import { IconClipboardText, IconAppsSettings } from 'finance-components/atoms/Icons';
 
 export const PAGE_ENUM = {
   resources: '/',
@@ -17,13 +13,8 @@ export const usePages = () => {
   return [
     {
       url: PAGE_ENUM.resources,
-      name: t('Financial'),
+      name: t('Home'),
       icon: <IconClipboardText />,
-    },
-    {
-      url: PAGE_ENUM.account,
-      name: t('Accounts'),
-      icon: <IconTextBulletList />,
     },
     {
       url: PAGE_ENUM.setting,

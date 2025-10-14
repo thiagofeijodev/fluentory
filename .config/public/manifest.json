@@ -1,10 +1,10 @@
 {
-  "id": "dev.feijo.finance",
-  "short_name": "Finance",
-  "name": "Finance",
-  "description": "Control your finance",
+  "id": "dev.feijo.fluentory",
+  "short_name": "Fluentory",
+  "name": "Fluentory",
+  "description": "Learn English faster by saving new words, reviewing them, and marking what you've mastered.",
   "start_url": "/",
-  "scope": "https://finance.feijo.dev/",
+  "scope": "https://fluentory.feijo.dev/",
   "dir": "ltr",
   "orientation": "any",
   "lang": "en-US",
@@ -12,7 +12,7 @@
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "categories": ["business", "finance", "productivity", "utilities"],
+  "categories": ["business", "productivity", "utilities"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,14 +22,14 @@
   ],
   "shortcuts": [
     {
-      "name": "Finance",
+      "name": "Fluentory",
       "url": "/",
-      "description": "Control your finance"
+      "description": "Learn English faster by saving new words, reviewing them, and marking what you've mastered."
     },
     {
-      "name": "Finance: Accounts",
+      "name": "Fluentory: Settings",
       "url": "/accounts",
-      "description": "Control your finance"
+      "description": "Control your Fluentory app"
     }
   ]
 }

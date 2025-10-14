@@ -11,13 +11,11 @@ import {
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
 import { Input } from 'finance-components/atoms/Input';
-import { fetchAllAccounts, insertFinancial } from 'finance-db';
+import { insertWord } from 'finance-db';
 import { useLanguage } from 'finance-contexts/TranslationProvider';
-import { Select } from 'finance-components/atoms/Select';
 import { useAuth } from 'finance-contexts/AuthProvider';
-import { useQuery } from 'finance-hooks/useQuery';
 
-export const AddDialog = () => {
+export const InsertWordDialog = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
   const {
@@ -28,23 +26,21 @@ export const AddDialog = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const { data: accounts } = useQuery(fetchAllAccounts, []);
-
   const onSubmit = (data) => {
-    insertFinancial(user.uid, data);
+    insertWord(user.uid, data);
     setOpen(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={(_event, data) => setOpen(data.open)}>
       <DialogTrigger disableButtonEnhancement>
-        <Button>{t('New')}</Button>
+        <Button>{t('New word')}</Button>
       </DialogTrigger>
       <DialogSurface>
         <DialogBody>
-          <DialogTitle>{t('New')}</DialogTitle>
+          <DialogTitle>{t('New word')}</DialogTitle>
           <DialogContent>
-            <form onSubmit={handleSubmit(insertFinancial)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Controller
                 control={control}
                 rules={{
@@ -52,8 +48,8 @@ export const AddDialog = () => {
                 }}
                 render={({ field: { onChange, onBlur } }) => (
                   <Input
-                    label={t('Name')}
-                    placeholder={t('Name')}
+                    label={t('Word')}
+                    placeholder={t('Word')}
                     onBlur={onBlur}
                     onChange={onChange}
                   />
@@ -61,32 +57,14 @@ export const AddDialog = () => {
                 name="name"
               />
               {errors.name && <span>{t('This field is required')}</span>}
-
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Select
-                    label={t('Account')}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    options={accounts.map((d) => d.name)}
-                    value={value || ''}
-                  />
-                )}
-                name="account"
-              />
-              {errors.account && <span>{t('This field is required')}</span>}
             </form>
           </DialogContent>
           <DialogActions>
             <DialogTrigger disableButtonEnhancement>
-              <Button appearance="secondary">{t('Close')}</Button>
+              <Button appearance="secondary">{t('Cancel')}</Button>
             </DialogTrigger>
             <Button appearance="primary" onClick={handleSubmit(onSubmit)}>
-              {t('Save')}
+              {t('Save word')}
             </Button>
           </DialogActions>
         </DialogBody>
@@ -95,4 +73,4 @@ export const AddDialog = () => {
   );
 };
 
-export default AddDialog;
+export default InsertWordDialog;

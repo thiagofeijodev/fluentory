@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Spinner } from '@fluentui/react-components';
-import { fetchAllAccounts } from 'finance-db';
+import { fetchAllWords } from 'finance-db';
 import { EmptyStateTemplate } from 'finance-components/templates/EmptyStateTemplate';
 import { CardItemList } from 'finance-components/atoms/CardItemList';
 import { useLanguage } from 'finance-contexts/TranslationProvider';
@@ -18,11 +18,11 @@ const useStyles = makeStyles({
   },
 });
 
-export const AccountsList = () => {
+export const WordList = () => {
   const styles = useStyles();
   const { t } = useLanguage();
 
-  const { data: accounts, isLoading } = useQuery(fetchAllAccounts, []);
+  const { data: accounts, isLoading } = useQuery(fetchAllWords, []);
 
   if (isLoading) {
     return <Spinner appearance="primary" label={`${t('Loading')}...`} />;
@@ -34,7 +34,7 @@ export const AccountsList = () => {
 
   return (
     <>
-      <h1>{t('Accounts')}:</h1>
+      <h1>{t('Words')}:</h1>
       <ul className={styles.ul}>
         {accounts.map((item, index) => (
           <li key={index}>
@@ -46,4 +46,4 @@ export const AccountsList = () => {
   );
 };
 
-export default AccountsList;
+export default WordList;

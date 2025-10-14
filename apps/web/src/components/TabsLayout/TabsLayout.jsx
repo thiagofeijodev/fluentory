@@ -15,7 +15,7 @@ export const TabsLayout = () => {
       return;
     }
 
-    document.title = `Finance: ${page.name}`;
+    document.title = `Fluentory: ${page.name}`;
   }, [location.pathname]);
 
   return (

@@ -3,10 +3,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { TabsLayout } from './components/TabsLayout/TabsLayout';
 import { PrivateTemplate } from './components/PrivateTemplate';
 import { Login } from './pages/Login';
-import { Financial } from './pages/Financial';
+import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
-import { Accounts } from './pages/Accounts';
-import { AccountsNew } from './pages/AccountsNew';
 import { Create } from './pages/Create';
 
 const router = createBrowserRouter([
@@ -20,21 +18,13 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Financial />,
+            element: <Home />,
           },
           {
             path: 'setting',
             element: <Settings />,
           },
-          {
-            path: 'accounts',
-            element: <Accounts />,
-          },
         ],
-      },
-      {
-        path: 'account/new',
-        element: <AccountsNew />,
       },
     ],
   },

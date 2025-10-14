@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Button } from '@fluentui/react-components';
 import { useTheme, themeEnumOption } from 'finance-contexts/ThemeProvider';
 import { useLanguage, translationEnumOption } from 'finance-contexts/TranslationProvider';
 import { Select } from 'finance-components/atoms/Select';
-import { backupDataBase } from './utils/backupDataBase';
 
 export const SettingsForm = () => {
   const { theme, onTheme } = useTheme();
@@ -23,7 +21,6 @@ export const SettingsForm = () => {
         options={[translationEnumOption.ptBr, translationEnumOption.en]}
         value={lng}
       />
-      <Button onClick={backupDataBase}>{t('Backup')}</Button>
     </>
   );
 };

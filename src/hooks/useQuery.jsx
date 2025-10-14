@@ -7,6 +7,8 @@ export const useQuery = (service, initialData) => {
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
+    if (!user?.uid) return;
+
     const onFinish = (data) => {
       setIsLoading(false);
       setData(data);

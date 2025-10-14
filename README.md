@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./.config/public/logo.png" width="300px">
-  <h1>Finance</h1>
+  <h1>Fluentory</h1>
 </div>
 
 <hr />

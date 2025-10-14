@@ -6,8 +6,9 @@ import { ViteFaviconsPlugin } from 'vite-plugin-favicon';
 const configIcon = {
   logo: '../../.config/public/logo.png',
   favicons: {
-    appName: 'Finance',
-    appDescription: 'Control your finance',
+    appName: 'Fluentory',
+    appDescription:
+      "Learn English faster by saving new words, reviewing them, and marking what you've mastered.",
     developerName: 'thiagofeijor',
     developerURL: 'feijo.dev',
     background: '#333',
@@ -20,10 +21,11 @@ const configIcon = {
 };
 
 const manifest = {
-  id: 'dev.feijo.finance',
-  name: 'Finance',
-  short_name: 'Finance',
-  description: 'Control your finance',
+  id: 'dev.feijo.fluentory',
+  name: 'Fluentory',
+  short_name: 'Fluentory',
+  description:
+    "Learn English faster by saving new words, reviewing them, and marking what you've mastered.",
   theme_color: '#ffffff',
   dir: 'ltr',
   orientation: 'any',
@@ -31,7 +33,7 @@ const manifest = {
   display_override: ['minimal-ui', 'window-controls-overlay'],
   display: 'standalone',
   background_color: '#ffffff',
-  categories: ['business', 'finance', 'productivity', 'utilities'],
+  categories: ['business', 'productivity', 'utilities'],
   icons: [
     {
       src: 'favicon.ico',

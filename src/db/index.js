@@ -1,6 +1,5 @@
 export * from './firebase';
-export * from './models/accounts';
-export * from './models/financial';
+export * from './models/words';
 
 export {
   getAuth,
