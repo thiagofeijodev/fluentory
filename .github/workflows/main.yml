@@ -1,15 +1,24 @@
-name: Deploy to Firebase Hosting on PR
-on: pull_request
+name: Deploy to Firebase Hosting on merge
+
+on:
+  push:
+    branches:
+      - main
 
 permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
 
 jobs:
-  build_and_preview:
-    environment: CI
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+  build_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,9 +55,8 @@ jobs:
           APPID: ${{ secrets.APPID }}
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - id: deployment
+        name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FINANCE_A316B }}
-          channelId: live
-          projectId: ${{ secrets.PROJECT_ID }}
+          folder: build
