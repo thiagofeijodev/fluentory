@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./.config/public/logo.png" width="300px">
+  <img src="./public/logo.png" width="300px">
   <h1>Fluentory</h1>
 </div>
 
