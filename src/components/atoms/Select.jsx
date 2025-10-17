@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, makeStyles, Option, useId } from '@fluentui/react-components';
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { useLanguage } from '../../contexts/TranslationProvider';
 
 const useStyles = makeStyles({
   root: {

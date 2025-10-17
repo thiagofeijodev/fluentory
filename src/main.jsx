@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { ThemeProvider } from '@tfr/contexts/ThemeProvider';
-import { TranslationProvider } from '@tfr/contexts/TranslationProvider';
-import { AuthProvider } from '@tfr/contexts/AuthProvider';
+import { ThemeProvider } from './contexts/ThemeProvider';
+import { TranslationProvider } from './contexts/TranslationProvider';
+import { AuthProvider } from './contexts/AuthProvider';
 import { App } from './App';
 
 const container = document.getElementById('root');

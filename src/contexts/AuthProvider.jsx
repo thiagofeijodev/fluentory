@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
-import { getLogin } from '@tfr/db';
+import { getLogin } from '../db';
 
 const AuthContext = createContext(null);
 

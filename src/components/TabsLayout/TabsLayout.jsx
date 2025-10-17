@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
-import { TabsTemplate } from '@tfr/components/templates/TabsTemplate';
+import { TabsTemplate } from '../templates/TabsTemplate';
 import { usePages } from './hooks/usePages';
 
 export const TabsLayout = () => {

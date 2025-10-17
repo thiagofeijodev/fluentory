@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Input } from '@tfr/components/atoms/Input';
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { Input } from '../atoms/Input';
+import { useLanguage } from '../../contexts/TranslationProvider';
 
 export const LoginForm = ({ onSubmit, form, children }) => {
   const { t } = useLanguage();

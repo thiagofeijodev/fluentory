@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { ViteFaviconsPlugin } from 'vite-plugin-favicon';
 
 const configIcon = {
-  logo: '../../.config/public/logo.png',
+  logo: './.config/public/logo.png',
   favicons: {
     appName: 'Fluentory',
     appDescription:
@@ -55,7 +55,7 @@ export default ({ mode }) => {
       'process.env': env,
     },
     build: {
-      outDir: '../../build',
+      outDir: './build',
       emptyOutDir: true,
     },
     plugins: [react(), ...prodPlugins],

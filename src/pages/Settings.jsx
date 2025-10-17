@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Persona } from '@tfr/components/atoms/Persona';
-import SettingsTemplate from '@tfr/components/templates/SettingsTemplate';
-import { useAuth } from '@tfr/contexts/AuthProvider';
-import { SettingsForm } from '@tfr/components/organisms/SettingsForm';
+import { Persona } from '../components/atoms/Persona';
+import SettingsTemplate from '../components/templates/SettingsTemplate';
+import { useAuth } from '../contexts/AuthProvider';
+import { SettingsForm } from '../components/organisms/SettingsForm';
 
 export const Settings = () => {
   const { user } = useAuth();

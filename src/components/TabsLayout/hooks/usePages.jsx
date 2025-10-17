@@ -1,5 +1,5 @@
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
-import { IconClipboardText, IconAppsSettings } from '@tfr/components/atoms/Icons';
+import { useLanguage } from '../../../contexts/TranslationProvider';
+import { IconClipboardText, IconAppsSettings } from '../../atoms/Icons';
 
 export const PAGE_ENUM = {
   resources: '/',

@@ -1,8 +1,0 @@
-{
-  "name": "@tfr/db",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "firebase": "^10.12.2"
-  }
-}

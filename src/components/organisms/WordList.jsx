@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles, Spinner } from '@fluentui/react-components';
-import { fetchAllWords } from '@tfr/db';
-import { EmptyStateTemplate } from '@tfr/components/templates/EmptyStateTemplate';
-import { CardItemList } from '@tfr/components/atoms/CardItemList';
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
-import { useQuery } from '@tfr/hooks/useQuery';
+import { fetchAllWords } from '../../db';
+import { EmptyStateTemplate } from '../templates/EmptyStateTemplate';
+import { CardItemList } from '../atoms/CardItemList';
+import { useLanguage } from '../../contexts/TranslationProvider';
+import { useQuery } from '../../hooks/useQuery';
 
 const useStyles = makeStyles({
   ul: {

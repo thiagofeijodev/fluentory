@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useTheme, themeEnumOption } from '@tfr/contexts/ThemeProvider';
-import { useLanguage, translationEnumOption } from '@tfr/contexts/TranslationProvider';
-import { Select } from '@tfr/components/atoms/Select';
+import { useTheme, themeEnumOption } from '../../contexts/ThemeProvider';
+import { useLanguage, translationEnumOption } from '../../contexts/TranslationProvider';
+import { Select } from '../atoms/Select';
 
 export const SettingsForm = () => {
   const { theme, onTheme } = useTheme();

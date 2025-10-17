@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAuthTest } from '@tfr/hooks/useAuthTest';
-import { SplashScreenTemplate } from '@tfr/components/templates/SplashScreenTemplate';
+import { useAuthTest } from '../hooks/useAuthTest';
+import { SplashScreenTemplate } from './templates/SplashScreenTemplate';
 
 export const PrivateTemplate = () => {
   const navigate = useNavigate();

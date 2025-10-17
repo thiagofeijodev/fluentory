@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '@tfr/contexts/AuthProvider';
+import { useAuth } from '../contexts/AuthProvider';
 
 export const useQuery = (service, initialData) => {
   const { user } = useAuth();

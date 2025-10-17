@@ -7,11 +7,11 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithEmailAndPassword,
-} from '@tfr/db';
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
-import { LoginTemplate } from '@tfr/components/templates/LoginTemplate';
-import { Button } from '@tfr/components/atoms/Button';
-import LoginForm from '@tfr/components/organisms/LoginForm';
+} from '../db';
+import { useLanguage } from '../contexts/TranslationProvider';
+import { LoginTemplate } from '../components/templates/LoginTemplate';
+import { Button } from '../components/atoms/Button';
+import LoginForm from '../components/organisms/LoginForm';
 
 export const Login = () => {
   const { t } = useLanguage();

@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
-import { Input } from '@tfr/components/atoms/Input';
-import { useLanguage } from '@tfr/contexts/TranslationProvider';
+import { Input } from '../atoms/Input';
+import { useLanguage } from '../../contexts/TranslationProvider';
 
 export const CreateForm = ({ onSubmit, form, children }) => {
   const { t } = useLanguage();

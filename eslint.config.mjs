@@ -17,6 +17,9 @@ export default [
         requireConfigFile: false,
       },
     },
+    rules: {
+      'no-const-assign': 'error',
+    },
     ignores: ['.config/*'],
   },
 ];
