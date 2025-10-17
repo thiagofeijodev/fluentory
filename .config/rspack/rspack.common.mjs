@@ -1,4 +1,5 @@
 import path from 'path';
+import rspack from '@rspack/core';
 
 export default {
   entry: path.resolve(process.cwd(), 'src/index.jsx'),
@@ -10,6 +11,17 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  plugins: [
+    new rspack.EnvironmentPlugin([
+      'API_KEY',
+      'AUTH_DOMAIN',
+      'PROJECT_ID',
+      'STORAGE_BUCKET',
+      'MESSAGING_SENDER_ID',
+      'APPID',
+      'MEASUREMENT_ID',
+    ]),
+  ],
   module: {
     rules: [
       {
