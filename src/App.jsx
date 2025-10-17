@@ -1,4 +1,3 @@
-import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { TabsLayout } from './components/TabsLayout/TabsLayout';
 import { PrivateTemplate } from './components/PrivateTemplate';

@@ -1,12 +1,11 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n, {
   translationEnumOption as _translationEnumOption,
   translationEnumReverseOption,
   cacheKey,
 } from './utils/i18n';
-
-const TranslationContext = createContext(null);
+import { TranslationContext } from './constants';
 
 export const TranslationProvider = ({ children }) => {
   const { t } = useTranslation();
@@ -35,9 +34,3 @@ export const TranslationProvider = ({ children }) => {
     </TranslationContext.Provider>
   );
 };
-
-export const useLanguage = () => {
-  return useContext(TranslationContext);
-};
-
-export const translationEnumOption = _translationEnumOption;

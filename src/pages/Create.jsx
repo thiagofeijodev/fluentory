@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '../db';
 import { Button } from '../components/atoms/Button';
 import CreateForm from '../components/organisms/CreateForm';
-import { useLanguage } from '../contexts/TranslationProvider';
+import { useLanguage } from '../hooks/useLanguage';
 import { CreateTemplate } from '../components/templates/CreateTemplate';
 
 export const Create = () => {

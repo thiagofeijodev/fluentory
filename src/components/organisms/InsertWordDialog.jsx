@@ -12,8 +12,8 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { Input } from '../atoms/Input';
 import { insertWord } from '../../db';
-import { useLanguage } from '../../contexts/TranslationProvider';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useAuth } from '../../hooks/useAuth';
 
 export const InsertWordDialog = () => {
   const { t } = useLanguage();

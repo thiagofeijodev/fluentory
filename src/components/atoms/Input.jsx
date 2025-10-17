@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { makeStyles, useId, Input as BaseInput, Label } from '@fluentui/react-components';
 
 const useStyles = makeStyles({

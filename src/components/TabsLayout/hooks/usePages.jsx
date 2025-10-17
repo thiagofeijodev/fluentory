@@ -1,4 +1,4 @@
-import { useLanguage } from '../../../contexts/TranslationProvider';
+import { useLanguage } from '../../../hooks/useLanguage';
 import { IconClipboardText, IconAppsSettings } from '../../atoms/Icons';
 
 export const PAGE_ENUM = {

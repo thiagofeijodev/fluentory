@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
 
 export const useAuthTest = (goToLogin) => {
   const { user, isLoading } = useAuth();

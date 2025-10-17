@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Button, Card, CardHeader, Text, Caption1 } from '@fluentui/react-components';
 import { MoreHorizontal20Regular } from '@fluentui/react-icons';
 

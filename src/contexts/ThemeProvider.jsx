@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FluentProvider,
   webLightTheme,
@@ -7,18 +7,9 @@ import {
   teamsDarkTheme,
   teamsHighContrastTheme,
 } from '@fluentui/react-components';
+import { ThemeContext, themeEnumOption } from './constants';
 
 const themeKey = 'ThemeProvider';
-
-const ThemeContext = createContext(null);
-
-export const themeEnumOption = {
-  light: 'Web Light',
-  dark: 'Web Dark',
-  teamLight: 'Light',
-  teamDark: 'Dark',
-  teamHighContrast: 'High Contrast',
-};
 
 const themeOptions = {
   [themeEnumOption.light]: webLightTheme,
@@ -46,8 +37,4 @@ export const ThemeProvider = ({ children }) => {
       <FluentProvider theme={themeOptions[theme] || webLightTheme}>{children}</FluentProvider>
     </ThemeContext.Provider>
   );
-};
-
-export const useTheme = () => {
-  return useContext(ThemeContext);
 };

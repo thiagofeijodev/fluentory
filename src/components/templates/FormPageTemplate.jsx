@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import { Children } from 'react';
 import { makeStyles } from '@fluentui/react-components';
 
 const useStyles = makeStyles({

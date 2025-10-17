@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Persona } from '../components/atoms/Persona';
 import SettingsTemplate from '../components/templates/SettingsTemplate';
-import { useAuth } from '../contexts/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
 import { SettingsForm } from '../components/organisms/SettingsForm';
 
 export const Settings = () => {

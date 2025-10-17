@@ -4,8 +4,6 @@ on:
   push:
     branches: ['main']
 
-  workflow_dispatch:
-
 permissions:
   contents: write
   pages: write
@@ -25,16 +23,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install 🔧
+      - name: Install Node 🔧
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'npm'
 
+      - name: Install Dependencies ⚙️
+        run: npm ci --include=optional
+
       - name: Build 🔧
-        run: |
-          npm ci --ignore-scripts
-          npm run build
+        run: npm run build
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
+          MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID }}
+          APPID: ${{ secrets.APPID }}
+          MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
+          NODE_ENV: production
 
       - id: deployment
         name: Deploy to GitHub Pages 🚀

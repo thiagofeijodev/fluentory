@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, makeStyles, Option, useId } from '@fluentui/react-components';
-import { useLanguage } from '../../contexts/TranslationProvider';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const useStyles = makeStyles({
   root: {
@@ -40,5 +40,7 @@ export const Select = React.forwardRef(
     );
   },
 );
+
+Select.displayName = 'Select';
 
 export default Select;

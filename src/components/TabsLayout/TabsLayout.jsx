@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { TabsTemplate } from '../templates/TabsTemplate';
 import { usePages } from './hooks/usePages';

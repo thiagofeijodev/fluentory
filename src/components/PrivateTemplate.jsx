@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthTest } from '../hooks/useAuthTest';
 import { SplashScreenTemplate } from './templates/SplashScreenTemplate';

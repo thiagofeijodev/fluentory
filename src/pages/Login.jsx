@@ -8,7 +8,7 @@ import {
   FacebookAuthProvider,
   signInWithEmailAndPassword,
 } from '../db';
-import { useLanguage } from '../contexts/TranslationProvider';
+import { useLanguage } from '../hooks/useLanguage';
 import { LoginTemplate } from '../components/templates/LoginTemplate';
 import { Button } from '../components/atoms/Button';
 import LoginForm from '../components/organisms/LoginForm';

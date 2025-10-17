@@ -1,4 +1,1 @@
-
-# TODO: revert test comment
-#npm test
-#npm run lint
+npm test && npm run lint
