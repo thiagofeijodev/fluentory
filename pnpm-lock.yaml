@@ -79,8 +79,8 @@ importers:
         specifier: ^15.7.0
         version: 15.8.0
       husky:
-        specifier: ^5.2.0
-        version: 5.2.0
+        specifier: ^9.1.7
+        version: 9.1.7
       prettier:
         specifier: ^3.2.5
         version: 3.3.2
@@ -4893,12 +4893,12 @@ packages:
       }
     engines: { node: '>=16.17.0' }
 
-  husky@5.2.0:
+  husky@9.1.7:
     resolution:
       {
-        integrity: sha512-AM8T/auHXRBxlrfPVLKP6jt49GCM2Zz47m8G3FOMsLmTv8Dj/fKVWE0Rh2d4Qrvmy131xEsdQnb3OXRib67PGg==,
+        integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==,
       }
-    engines: { node: '>= 10' }
+    engines: { node: '>=18' }
     hasBin: true
 
   i18next@23.11.5:
@@ -11493,7 +11493,7 @@ snapshots:
   human-signals@5.0.0:
     optional: true
 
-  husky@5.2.0:
+  husky@9.1.7:
     optional: true
 
   i18next@23.11.5:

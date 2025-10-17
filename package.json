@@ -2,7 +2,6 @@
   "name": "fluentory",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "start": "vite",
@@ -10,7 +9,7 @@
     "preview": "vite preview",
     "test": "echo 1",
     "lint": "eslint src apps/web --max-warnings 0",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@fluentui/react-components": "^9.53.0",
@@ -40,7 +39,7 @@
     "@testing-library/user-event": "^14.5.2",
     "eslint": "^9.2.0",
     "globals": "^15.7.0",
-    "husky": "^5.2.0",
+    "husky": "^9.1.7",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0"
   }
