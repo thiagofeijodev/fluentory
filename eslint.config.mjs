@@ -68,7 +68,7 @@ const config = [
     rules: {
       'no-const-assign': 'error',
       'react/react-in-jsx-scope': 'off', // Not needed with React 17+
-      'react/prop-types': 'off', // Using TypeScript for prop validation
+      'react/prop-types': 'off', // not using prop-types
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'error',

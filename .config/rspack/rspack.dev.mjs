@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 import { RspackDevServer } from '@rspack/dev-server';
 import rspack from '@rspack/core';
 import common from './rspack.common.mjs';
@@ -15,6 +16,7 @@ const rspackConfig = {
   },
   plugins: [
     ...common.plugins,
+    new ReactRefreshPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), 'public/index.html'),
       filename: path.join(process.cwd(), 'static/index.html'),
