@@ -5,7 +5,7 @@ import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '../
 import { Button } from '../components/atoms/Button';
 import CreateForm from '../components/organisms/CreateForm';
 import { useLanguage } from '../hooks/useLanguage';
-import { CreateTemplate } from '../components/templates/CreateTemplate';
+import { PublicTemplate } from '../components/templates/PublicTemplate';
 
 export const Create = () => {
   const { t } = useLanguage();
@@ -33,21 +33,57 @@ export const Create = () => {
   };
 
   return (
-    <CreateTemplate>
-      <div>
-        <CreateForm onSubmit={onCreateByEmail} form={form}>
-          <Button primary type="submit" onClick={form?.handleSubmit(onCreateByEmail)}>
-            {t('Create')}
-          </Button>
-        </CreateForm>
-      </div>
-      <div>
-        <p>{errorMessage}</p>
-        <Button primary onClick={onGoToLogin}>
-          {t('Login')}
+    <PublicTemplate>
+      <CreateForm onSubmit={onCreateByEmail} form={form}>
+        <Button
+          appearance="primary"
+          type="submit"
+          onClick={form?.handleSubmit(onCreateByEmail)}
+          style={{
+            width: '100%',
+            height: '40px',
+            marginBottom: 'var(--spacingVerticalM)',
+          }}
+        >
+          {t('Create Account')}
+        </Button>
+      </CreateForm>
+
+      {errorMessage && (
+        <div
+          style={{
+            color: 'var(--colorPaletteRedForeground1)',
+            textAlign: 'center',
+            margin: 'var(--spacingVerticalS) 0',
+            padding: 'var(--spacingVerticalS)',
+            backgroundColor: 'var(--colorPaletteRedBackground1)',
+            borderRadius: 'var(--borderRadiusMedium)',
+          }}
+        >
+          {errorMessage}
+        </div>
+      )}
+
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: 'var(--spacingVerticalL)',
+          padding: 'var(--spacingVerticalM) 0',
+        }}
+      >
+        <span
+          style={{
+            color: 'var(--colorNeutralForeground2)',
+            marginRight: 'var(--spacingHorizontalS)',
+          }}
+        >
+          {t('Already have an account?')}
+        </span>
+        <Button appearance="transparent" onClick={onGoToLogin}>
+          {t('Sign in here')}
         </Button>
       </div>
-    </CreateTemplate>
+    </PublicTemplate>
   );
 };
 
