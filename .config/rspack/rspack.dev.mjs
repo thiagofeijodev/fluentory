@@ -36,24 +36,14 @@ const rspackConfig = {
 async function run() {
   const compiler = rspack(rspackConfig);
 
-  // RspackDevServer expects a dev-server options object (same shape as webpack-dev-server options),
-  // not the full rspack config which contains a `devServer` property. Pass `rspackConfig.devServer`.
   const serverOptions = rspackConfig.devServer || {};
 
   const server = new RspackDevServer(serverOptions, compiler);
 
-  if (typeof server.startCallback === 'function') {
-    server.startCallback(() => {
-      const port = serverOptions.port || 3001;
-      console.log(`Successfully started server on http://localhost:${port}`);
-    });
-  } else if (typeof server.start === 'function') {
-    await server.start();
+  server.startCallback(() => {
     const port = serverOptions.port || 3001;
     console.log(`Successfully started server on http://localhost:${port}`);
-  } else {
-    console.log('Started rspack dev server (no startCallback/start API available on this version)');
-  }
+  });
 }
 
 run();

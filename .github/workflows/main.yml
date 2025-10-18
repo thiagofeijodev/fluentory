@@ -1,4 +1,4 @@
-name: Deploy
+name: Production Deploy
 
 on:
   push:
@@ -17,20 +17,28 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node 🔧
+      - name: Install 🔧
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'npm'
 
-      - name: Install Dependencies ⚙️
+      - name: Install dependencies (including optional)
         run: npm ci --include=optional
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: |
+          mkdir -p test-results
+          # run jest and write JSON results so we can upload them as an artifact
+          npm run test:ci
 
       - name: Build 🔧
         run: npm run build
@@ -49,3 +57,10 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-results
+          path: test-results
