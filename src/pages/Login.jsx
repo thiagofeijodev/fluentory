@@ -9,7 +9,7 @@ import {
   signInWithEmailAndPassword,
 } from '../db';
 import { useLanguage } from '../hooks/useLanguage';
-import { LoginTemplate } from '../components/templates/LoginTemplate';
+import { PublicTemplate } from '../components/templates/PublicTemplate';
 import { Button } from '../components/atoms/Button';
 import LoginForm from '../components/organisms/LoginForm';
 
@@ -48,25 +48,81 @@ export const Login = () => {
   };
 
   return (
-    <LoginTemplate>
-      <div>
-        <LoginForm onSubmit={onLoginByEmail} form={form}>
-          <Button primary type="submit" onClick={form?.handleSubmit(onLoginByEmail)}>
-            {t('Login')}
-          </Button>
-        </LoginForm>
+    <PublicTemplate>
+      <LoginForm onSubmit={onLoginByEmail} form={form}>
+        <Button
+          appearance="primary"
+          type="submit"
+          onClick={form?.handleSubmit(onLoginByEmail)}
+          style={{ width: '100%' }}
+        >
+          {t('Sign in')}
+        </Button>
+      </LoginForm>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          margin: '1.5rem 0',
+        }}
+      >
+        <div style={{ flex: 1, height: '1px', background: 'var(--colorNeutralStroke2)' }} />
+        <span style={{ color: 'var(--colorNeutralForeground2)' }}>{t('or')}</span>
+        <div style={{ flex: 1, height: '1px', background: 'var(--colorNeutralStroke2)' }} />
       </div>
-      <div>
-        <Button onClick={onLoginByGoogle}>Google</Button>
-        <Button onClick={onLoginByFB}>Facebook</Button>
+
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+        <Button
+          appearance="subtle"
+          icon={
+            <img
+              src="https://authjs.dev/img/providers/google.svg"
+              style={{ width: 20, height: 20 }}
+              alt="Google"
+            />
+          }
+          onClick={onLoginByGoogle}
+        >
+          Google
+        </Button>
+        <Button
+          appearance="subtle"
+          icon={
+            <img
+              src="https://authjs.dev/img/providers/facebook.svg"
+              style={{ width: 20, height: 20 }}
+              alt="Facebook"
+            />
+          }
+          onClick={onLoginByFB}
+        >
+          Facebook
+        </Button>
       </div>
-      <div>
-        <p>{errorMessage}</p>
-        <Button primary onClick={onGoToCreate}>
+
+      {errorMessage && (
+        <div
+          style={{
+            color: 'var(--colorPaletteRedForeground1)',
+            textAlign: 'center',
+            margin: '1rem 0',
+          }}
+        >
+          {errorMessage}
+        </div>
+      )}
+
+      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+        <span style={{ marginRight: '0.5rem', color: 'var(--colorNeutralForeground2)' }}>
+          {t("Don't have an account?")}
+        </span>
+        <Button appearance="transparent" onClick={onGoToCreate}>
           {t('Create new account')}
         </Button>
       </div>
-    </LoginTemplate>
+    </PublicTemplate>
   );
 };
 
