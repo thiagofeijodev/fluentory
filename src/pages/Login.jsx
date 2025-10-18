@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { makeStyles, tokens } from '@fluentui/react-components';
 import {
   getAuth,
   signInWithPopup,
@@ -12,6 +13,48 @@ import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/templates/PublicTemplate';
 import { Button } from '../components/atoms/Button';
 import LoginForm from '../components/organisms/LoginForm';
+
+const useStyles = makeStyles({
+  submitButton: {
+    width: '100%',
+  },
+  divider: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: tokens.spacingHorizontalL,
+    margin: `${tokens.spacingVerticalL} 0`,
+  },
+  dividerLine: {
+    flex: 1,
+    height: '1px',
+    background: tokens.colorNeutralStroke2,
+  },
+  dividerText: {
+    color: tokens.colorNeutralForeground2,
+  },
+  socialButtons: {
+    display: 'flex',
+    gap: tokens.spacingHorizontalM,
+    justifyContent: 'center',
+  },
+  socialIcon: {
+    width: '20px',
+    height: '20px',
+  },
+  errorMessage: {
+    color: tokens.colorPaletteRedForeground1,
+    textAlign: 'center',
+    margin: `${tokens.spacingVerticalM} 0`,
+  },
+  footer: {
+    textAlign: 'center',
+    marginTop: tokens.spacingVerticalM,
+  },
+  footerText: {
+    marginRight: tokens.spacingHorizontalS,
+    color: tokens.colorNeutralForeground2,
+  },
+});
 
 export const Login = () => {
   const { t } = useLanguage();
@@ -47,6 +90,8 @@ export const Login = () => {
     signInWithEmailAndPassword(auth, data.email, data.password).then(onSuccess).catch(onError);
   };
 
+  const styles = useStyles();
+
   return (
     <PublicTemplate>
       <LoginForm onSubmit={onLoginByEmail} form={form}>
@@ -54,32 +99,25 @@ export const Login = () => {
           appearance="primary"
           type="submit"
           onClick={form?.handleSubmit(onLoginByEmail)}
-          style={{ width: '100%' }}
+          className={styles.submitButton}
         >
           {t('Sign in')}
         </Button>
       </LoginForm>
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          margin: '1.5rem 0',
-        }}
-      >
-        <div style={{ flex: 1, height: '1px', background: 'var(--colorNeutralStroke2)' }} />
-        <span style={{ color: 'var(--colorNeutralForeground2)' }}>{t('or')}</span>
-        <div style={{ flex: 1, height: '1px', background: 'var(--colorNeutralStroke2)' }} />
+      <div className={styles.divider}>
+        <div className={styles.dividerLine} />
+        <span className={styles.dividerText}>{t('or')}</span>
+        <div className={styles.dividerLine} />
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+      <div className={styles.socialButtons}>
         <Button
           appearance="subtle"
           icon={
             <img
               src="https://authjs.dev/img/providers/google.svg"
-              style={{ width: 20, height: 20 }}
+              className={styles.socialIcon}
               alt="Google"
             />
           }
@@ -92,7 +130,7 @@ export const Login = () => {
           icon={
             <img
               src="https://authjs.dev/img/providers/facebook.svg"
-              style={{ width: 20, height: 20 }}
+              className={styles.socialIcon}
               alt="Facebook"
             />
           }
@@ -102,22 +140,10 @@ export const Login = () => {
         </Button>
       </div>
 
-      {errorMessage && (
-        <div
-          style={{
-            color: 'var(--colorPaletteRedForeground1)',
-            textAlign: 'center',
-            margin: '1rem 0',
-          }}
-        >
-          {errorMessage}
-        </div>
-      )}
+      {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <span style={{ marginRight: '0.5rem', color: 'var(--colorNeutralForeground2)' }}>
-          {t("Don't have an account?")}
-        </span>
+      <div className={styles.footer}>
+        <span className={styles.footerText}>{t("Don't have an account?")}</span>
         <Button appearance="transparent" onClick={onGoToCreate}>
           {t('Create new account')}
         </Button>

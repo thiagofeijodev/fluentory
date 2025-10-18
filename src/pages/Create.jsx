@@ -1,11 +1,37 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { makeStyles, tokens } from '@fluentui/react-components';
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '../db';
 import { Button } from '../components/atoms/Button';
 import CreateForm from '../components/organisms/CreateForm';
 import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/templates/PublicTemplate';
+
+const useStyles = makeStyles({
+  submitButton: {
+    width: '100%',
+    height: '40px',
+    marginBottom: tokens.spacingVerticalM,
+  },
+  errorMessage: {
+    color: tokens.colorPaletteRedForeground1,
+    textAlign: 'center',
+    margin: `${tokens.spacingVerticalS} 0`,
+    padding: tokens.spacingVerticalS,
+    backgroundColor: tokens.colorPaletteRedBackground1,
+    borderRadius: tokens.borderRadiusMedium,
+  },
+  footer: {
+    textAlign: 'center',
+    marginTop: tokens.spacingVerticalL,
+    padding: `${tokens.spacingVerticalM} 0`,
+  },
+  footerText: {
+    color: tokens.colorNeutralForeground2,
+    marginRight: tokens.spacingHorizontalS,
+  },
+});
 
 export const Create = () => {
   const { t } = useLanguage();
@@ -32,6 +58,8 @@ export const Create = () => {
     createUserWithEmailAndPassword(auth, data.email, data.password).then(onSuccess).catch(onError);
   };
 
+  const styles = useStyles();
+
   return (
     <PublicTemplate>
       <CreateForm onSubmit={onCreateByEmail} form={form}>
@@ -39,46 +67,16 @@ export const Create = () => {
           appearance="primary"
           type="submit"
           onClick={form?.handleSubmit(onCreateByEmail)}
-          style={{
-            width: '100%',
-            height: '40px',
-            marginBottom: 'var(--spacingVerticalM)',
-          }}
+          className={styles.submitButton}
         >
           {t('Create Account')}
         </Button>
       </CreateForm>
 
-      {errorMessage && (
-        <div
-          style={{
-            color: 'var(--colorPaletteRedForeground1)',
-            textAlign: 'center',
-            margin: 'var(--spacingVerticalS) 0',
-            padding: 'var(--spacingVerticalS)',
-            backgroundColor: 'var(--colorPaletteRedBackground1)',
-            borderRadius: 'var(--borderRadiusMedium)',
-          }}
-        >
-          {errorMessage}
-        </div>
-      )}
+      {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 'var(--spacingVerticalL)',
-          padding: 'var(--spacingVerticalM) 0',
-        }}
-      >
-        <span
-          style={{
-            color: 'var(--colorNeutralForeground2)',
-            marginRight: 'var(--spacingHorizontalS)',
-          }}
-        >
-          {t('Already have an account?')}
-        </span>
+      <div className={styles.footer}>
+        <span className={styles.footerText}>{t('Already have an account?')}</span>
         <Button appearance="transparent" onClick={onGoToLogin}>
           {t('Sign in here')}
         </Button>
