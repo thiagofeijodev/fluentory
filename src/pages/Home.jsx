@@ -1,6 +1,6 @@
-import { ListPageTemplate } from '../components/templates/ListPageTemplate';
-import { InsertWordDialog } from '../components/organisms/InsertWordDialog';
-import { WordList } from '../components/organisms/WordList';
+import { ListPageTemplate } from '../components/ListPageTemplate';
+import { InsertWordDialog } from '../features/words/InsertWordDialog';
+import { WordList } from '../features/words/WordList';
 
 export const Home = () => {
   return (

@@ -1,7 +1,7 @@
-import { Persona } from '../components/atoms/Persona';
-import SettingsTemplate from '../components/templates/SettingsTemplate';
+import { Persona } from '../components/Persona';
+import SettingsTemplate from '../components/SettingsTemplate';
 import { useAuth } from '../hooks/useAuth';
-import { SettingsForm } from '../components/organisms/SettingsForm';
+import { SettingsForm } from '../features/settings/SettingsForm';
 
 export const Settings = () => {
   const { user } = useAuth();

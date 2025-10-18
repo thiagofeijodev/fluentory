@@ -1,5 +1,5 @@
 import { useLanguage } from '../../../hooks/useLanguage';
-import { IconClipboardText, IconAppsSettings } from '../../atoms/Icons';
+import { IconClipboardText, IconAppsSettings } from '../../Icons';
 
 export const PAGE_ENUM = {
   resources: '/',

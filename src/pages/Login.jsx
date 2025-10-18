@@ -10,9 +10,9 @@ import {
   signInWithEmailAndPassword,
 } from '../db';
 import { useLanguage } from '../hooks/useLanguage';
-import { PublicTemplate } from '../components/templates/PublicTemplate';
-import { Button } from '../components/atoms/Button';
-import LoginForm from '../components/organisms/LoginForm';
+import { PublicTemplate } from '../components/PublicTemplate';
+import { Button } from '../components/Button';
+import LoginForm from '../features/auth/LoginForm';
 
 const useStyles = makeStyles({
   submitButton: {

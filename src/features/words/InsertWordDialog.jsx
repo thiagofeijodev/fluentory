@@ -10,7 +10,7 @@ import {
   Button,
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
-import { Input } from '../atoms/Input';
+import { Input } from '../../components/Input';
 import { insertWord } from '../../db';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useAuth } from '../../hooks/useAuth';

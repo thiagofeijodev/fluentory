@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { makeStyles, tokens, Title1, Caption1 } from '@fluentui/react-components';
-import { Input } from '../atoms/Input';
+import { Input } from '../../components/Input';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const useStyles = makeStyles({

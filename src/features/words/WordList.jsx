@@ -1,7 +1,7 @@
 import { makeStyles, Spinner } from '@fluentui/react-components';
 import { fetchAllWords } from '../../db';
-import { EmptyStateTemplate } from '../templates/EmptyStateTemplate';
-import { CardItemList } from '../atoms/CardItemList';
+import { EmptyStateTemplate } from '../../components/EmptyStateTemplate';
+import { CardItemList } from '../../components/CardItemList';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useQuery } from '../../hooks/useQuery';
 

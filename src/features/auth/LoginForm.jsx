@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Input } from '../atoms/Input';
+import { Input } from '../../components/Input';
 import { useLanguage } from '../../hooks/useLanguage';
 import { makeStyles, Title1, Caption1, tokens } from '@fluentui/react-components';
 

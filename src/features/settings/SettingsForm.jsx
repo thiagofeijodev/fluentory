@@ -1,7 +1,7 @@
 import { useTheme } from '../../hooks/useTheme';
 import { themeEnumOption, translationEnumOption } from '../../contexts/constants';
 import { useLanguage } from '../../hooks/useLanguage';
-import { Select } from '../atoms/Select';
+import { Select } from '../../components/Select';
 
 export const SettingsForm = () => {
   const { theme, onTheme } = useTheme();

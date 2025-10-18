@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthTest } from '../hooks/useAuthTest';
-import { SplashScreenTemplate } from './templates/SplashScreenTemplate';
+import { SplashScreenTemplate } from './SplashScreenTemplate';
 
 export const PrivateTemplate = () => {
   const navigate = useNavigate();
