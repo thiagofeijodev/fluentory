@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -14,10 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -53,11 +50,10 @@ jobs:
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
           NODE_ENV: production
 
-      - id: deployment
-        name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist
+          path: ./dist
 
       - name: Upload test results
         if: always()
@@ -65,3 +61,15 @@ jobs:
         with:
           name: jest-results
           path: test-results
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
