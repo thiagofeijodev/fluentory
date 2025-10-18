@@ -2,12 +2,14 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import prettier from 'eslint-config-prettier';
 import eslint from '@eslint/js';
 
 const config = [
   // Base configuration for all files
   eslint.configs.recommended,
   react.configs.flat.recommended,
+  prettier,
 
   // Configuration files (including this one)
   {

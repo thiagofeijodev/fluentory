@@ -1,4 +1,6 @@
 {
+  "editor.formatOnSave": true,
+
   // Use the ESLint flat config API
   "eslint.useFlatConfig": true,
 
