@@ -59,8 +59,16 @@ export default {
       },
       {
         test: /\.css$/,
-        exclude: /\.module\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(png|jp(e*)g|gif)$/,

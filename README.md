@@ -22,7 +22,6 @@
 ## Linter
 
 `npm run lint`
-xe
 
 ## Links
 
