@@ -21,6 +21,19 @@ export default {
       'APPID',
       'MEASUREMENT_ID',
     ]),
+    new rspack.CopyRspackPlugin({
+      patterns: [
+        {
+          from: path.resolve(process.cwd(), 'public/_redirects'),
+        },
+        {
+          from: path.resolve(process.cwd(), 'public/netlify.toml'),
+        },
+        {
+          from: path.resolve(process.cwd(), 'public/robots.txt'),
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
