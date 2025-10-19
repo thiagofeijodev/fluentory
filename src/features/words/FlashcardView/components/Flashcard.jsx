@@ -1,5 +1,9 @@
-import { makeStyles } from '@fluentui/react-components';
+import { useState } from 'react';
+import { Button, makeStyles, Spinner } from '@fluentui/react-components';
+import { getAI, getGenerativeModel } from 'firebase/ai';
 import { useLanguage } from '../../../../hooks/useLanguage';
+import { app } from '../../../../db/firebase';
+import { Sparkle24Filled } from '@fluentui/react-icons';
 
 const useStyles = makeStyles({
   card: {
@@ -38,11 +42,55 @@ const useStyles = makeStyles({
     margin: '0',
     lineHeight: '1.6',
   },
+  aiContainer: {
+    gridColumnStart: '1',
+    gridColumnEnd: '3',
+    textAlign: 'center',
+  },
+  similarWords: {
+    marginTop: '20px',
+    fontSize: '18px',
+  },
 });
 
 export const Flashcard = ({ word, description }) => {
   const { t } = useLanguage();
   const styles = useStyles();
+  const [similarWords, setSimilarWords] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const listFromAI = similarWords[word?.name] || [];
+
+  const handleAskAI = async () => {
+    if (!word?.name) return;
+
+    setIsLoading(true);
+    setSimilarWords((prev) => ({
+      ...prev,
+      [word.name]: [],
+    }));
+
+    try {
+      const ai = getAI(app);
+      const model = getGenerativeModel(ai, { model: 'gemini-2.5-flash' });
+
+      const prompt = `Provide 5 similar words to "${word.name}". Return only a comma-separated list of the words.`;
+
+      const result = await model.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
+
+      setSimilarWords((prev) => ({
+        ...prev,
+        [word.name]: text.split(',').map((w) => w.trim()),
+      }));
+    } catch (error) {
+      console.error('Error fetching similar words:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
@@ -52,6 +100,23 @@ export const Flashcard = ({ word, description }) => {
       <div className={styles.cardContent}>
         <div className={styles.label}>{t('Definition')}</div>
         <p className={styles.description}>{description}</p>
+      </div>
+      <div className={styles.aiContainer}>
+        <Button
+          appearance="primary"
+          icon={<Sparkle24Filled />}
+          onClick={handleAskAI}
+          disabled={isLoading}
+        >
+          {t('Ask AI for 5 similar words')}
+        </Button>
+        {isLoading && <Spinner label={`${t('Thinking')}...`} />}
+        {listFromAI.length > 0 && (
+          <div className={styles.similarWords}>
+            <strong>{t('Similar words')}:</strong>
+            <p>{listFromAI.join(', ')}</p>
+          </div>
+        )}
       </div>
     </div>
   );
