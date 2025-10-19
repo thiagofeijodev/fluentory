@@ -3,6 +3,8 @@
   <h1>Fluentory</h1>
 </div>
 
+An AI-powered web app for English learners to practice vocabulary.
+
 <hr />
 
 # Project Scripts

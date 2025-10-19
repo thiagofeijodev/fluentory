@@ -2,7 +2,7 @@
   "id": "dev.feijo.fluentory",
   "short_name": "Fluentory",
   "name": "Fluentory",
-  "description": "Learn English faster by saving new words, reviewing them, and marking what you've mastered.",
+  "description": "An AI-powered web app for English learners to practice vocabulary.",
   "start_url": "/",
   "scope": "https://fluentory.feijo.dev/",
   "dir": "ltr",
@@ -24,12 +24,12 @@
     {
       "name": "Fluentory",
       "url": "/",
-      "description": "Learn English faster by saving new words, reviewing them, and marking what you've mastered."
+      "description": "An AI-powered web app for English learners to practice vocabulary."
     },
     {
-      "name": "Fluentory: Settings",
-      "url": "/accounts",
-      "description": "Control your Fluentory app"
+      "name": "Fluentory: login",
+      "url": "/login",
+      "description": ""
     }
   ]
 }
