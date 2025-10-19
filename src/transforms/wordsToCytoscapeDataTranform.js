@@ -1,4 +1,5 @@
-export const wordsToCytoscapeDataTranform = (data) => {
+export const wordsToCytoscapeDataTranform = (data, options = {}) => {
+  const { showSynonyms = true } = options;
   const elements = [];
   const addedNodes = new Set();
 
@@ -8,17 +9,19 @@ export const wordsToCytoscapeDataTranform = (data) => {
     }
 
     if (!addedNodes.has(word.id)) {
-      elements.push({ data: { id: word.name, label: word.name } });
+      elements.push({ data: { id: word.name, label: word.name, type: 'word' } });
       addedNodes.add(word.name);
     }
 
-    (word.synonyms || []).forEach((synonym) => {
-      if (!addedNodes.has(synonym)) {
-        elements.push({ data: { id: synonym, label: synonym } });
-        addedNodes.add(synonym);
-      }
-      elements.push({ data: { source: word.name, target: synonym, label: '' } });
-    });
+    if (showSynonyms) {
+      (word.synonyms || []).forEach((synonym) => {
+        if (!addedNodes.has(synonym)) {
+          elements.push({ data: { id: synonym, label: synonym, type: 'synonym' } });
+          addedNodes.add(synonym);
+        }
+        elements.push({ data: { source: word.name, target: synonym, label: '' } });
+      });
+    }
 
     (word.classes || []).forEach((classWord) => {
       if (!addedNodes.has(classWord)) {

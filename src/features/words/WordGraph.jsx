@@ -10,15 +10,11 @@ const useStyles = makeStyles({
     height: '100vh',
     position: 'relative',
   },
-  layoutSelector: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-    zIndex: 10,
-  },
 });
 
-export const WordGraph = ({ data }) => {
+cytoscape.use(euler);
+
+export const WordGraph = ({ data, showSynonyms }) => {
   const classes = useStyles();
   const containerRef = useRef(null);
   const cyRef = useRef(null);
@@ -26,9 +22,7 @@ export const WordGraph = ({ data }) => {
   useEffect(() => {
     if (!data || data.length === 0 || !containerRef.current) return;
 
-    cytoscape.use(euler);
-    const elements = wordsToCytoscapeDataTranform(data);
-    console.log('cy', { data, elements });
+    const elements = wordsToCytoscapeDataTranform(data, { showSynonyms });
     const cy = cytoscape({
       container: containerRef.current,
       zoomingEnabled: true,
@@ -63,6 +57,15 @@ export const WordGraph = ({ data }) => {
             width: 150,
             height: 150,
             shape: 'ellipse',
+          },
+        },
+        {
+          selector: "node[type='synonym']",
+          style: {
+            'background-color': '#f0f0f0',
+            color: 'black',
+            width: 80,
+            height: 8,
           },
         },
         {
@@ -102,7 +105,7 @@ export const WordGraph = ({ data }) => {
     return () => {
       cy.destroy();
     };
-  }, [data]);
+  }, [data, showSynonyms]);
 
   return (
     <div className={classes.container}>

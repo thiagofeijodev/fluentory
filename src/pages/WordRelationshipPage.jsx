@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, makeStyles, tokens } from '@fluentui/react-components';
 import { ArrowLeft24Regular } from '@fluentui/react-icons';
@@ -17,11 +18,13 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     backgroundColor: tokens.colorNeutralBackground2,
   },
-  backButton: {
+  controls: {
     position: 'absolute',
     top: tokens.spacingVerticalXXL,
     left: tokens.spacingHorizontalXXL,
     zIndex: 1,
+    display: 'flex',
+    gap: tokens.spacingHorizontalS,
   },
 });
 
@@ -29,6 +32,7 @@ export const WordRelationshipPage = () => {
   const styles = useStyles();
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [showSynonyms, setShowSynonyms] = useState(true);
 
   const { data: words, isLoading: isLoadingWords } = useQuery(fetchAllWords, []);
   const { data: wordRelationships, isLoading: isLoadingSynonyms } = useSynonyms(words);
@@ -41,15 +45,15 @@ export const WordRelationshipPage = () => {
 
   return (
     <div className={styles.root}>
-      <Button
-        className={styles.backButton}
-        appearance="primary"
-        icon={<ArrowLeft24Regular />}
-        onClick={handleBack}
-      >
-        {t('Back to Home')}
-      </Button>
-      <WordGraph data={wordRelationships} />
+      <div className={styles.controls}>
+        <Button appearance="primary" icon={<ArrowLeft24Regular />} onClick={handleBack}>
+          {t('Back to Home')}
+        </Button>
+        <Button appearance="primary" onClick={() => setShowSynonyms(!showSynonyms)}>
+          {showSynonyms ? t('Hide Synonyms') : t('Show Synonyms')}
+        </Button>
+      </div>
+      <WordGraph data={wordRelationships} showSynonyms={showSynonyms} />
     </div>
   );
 };
