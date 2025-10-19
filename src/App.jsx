@@ -6,36 +6,41 @@ import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
 import { Create } from './pages/Create';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <PrivateTemplate />,
-    children: [
-      {
-        index: '/',
-        element: <TabsLayout />,
-        children: [
-          {
-            index: true,
-            element: <Home />,
-          },
-          {
-            path: 'setting',
-            element: <Settings />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/create',
-    element: <Create />,
-  },
-]);
+const basename = window.location.pathname.includes('/fluentory/') ? '/fluentory' : '/';
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <PrivateTemplate />,
+      children: [
+        {
+          index: '/',
+          element: <TabsLayout />,
+          children: [
+            {
+              index: true,
+              element: <Home />,
+            },
+            {
+              path: 'setting',
+              element: <Settings />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/create',
+      element: <Create />,
+    },
+  ],
+  { basename },
+);
 
 export const App = () => <RouterProvider router={router} />;
 
