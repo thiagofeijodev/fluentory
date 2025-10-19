@@ -13,7 +13,6 @@ export default {
   },
   plugins: [
     new rspack.EnvironmentPlugin([
-      'API_KEY',
       'AUTH_DOMAIN',
       'PROJECT_ID',
       'STORAGE_BUCKET',
