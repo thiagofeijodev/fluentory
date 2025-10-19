@@ -4,14 +4,14 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     height: '100vh',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: tokens.colorNeutralBackground2,
   },
   card: {
     width: '100%',
-    flex: 1,
+    maxWidth: '400px',
     padding: tokens.spacingVerticalXXL,
     display: 'flex',
     flexDirection: 'column',

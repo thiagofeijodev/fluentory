@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, makeStyles, tokens } from '@fluentui/react-components';
 import { ArrowLeft24Regular } from '@fluentui/react-icons';
-import { PublicTemplate } from '../components/PublicTemplate';
 import { fetchAllWords } from '../db/models/words';
 import { useQuery } from '../hooks/useQuery';
 import { WordGraph } from '../features/words/WordGraph';
@@ -10,6 +9,14 @@ import { Loading } from '../components/Loading';
 import { useLanguage } from '../hooks/useLanguage';
 
 const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    height: '100vh',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    flexDirection: 'column',
+    backgroundColor: tokens.colorNeutralBackground2,
+  },
   backButton: {
     position: 'absolute',
     top: tokens.spacingVerticalXXL,
@@ -33,7 +40,7 @@ export const WordRelationshipPage = () => {
   }
 
   return (
-    <PublicTemplate>
+    <div className={styles.root}>
       <Button
         className={styles.backButton}
         appearance="primary"
@@ -43,7 +50,7 @@ export const WordRelationshipPage = () => {
         {t('Back to Home')}
       </Button>
       <WordGraph data={wordRelationships} />
-    </PublicTemplate>
+    </div>
   );
 };
 
