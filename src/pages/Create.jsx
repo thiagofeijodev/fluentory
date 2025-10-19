@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { makeStyles, tokens } from '@fluentui/react-components';
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '../db';
 import { Button } from '../components/Button';
+import { AuthPageTemplate } from '../components/AuthPageTemplate';
 import { CreateForm } from '../features/auth/CreateForm';
 import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/PublicTemplate';
@@ -61,25 +62,27 @@ export const Create = () => {
 
   return (
     <PublicTemplate>
-      <CreateForm onSubmit={onCreateByEmail} form={form}>
-        <Button
-          appearance="primary"
-          type="submit"
-          onClick={form?.handleSubmit(onCreateByEmail)}
-          className={styles.submitButton}
-        >
-          {t('Create Account')}
-        </Button>
-      </CreateForm>
+      <AuthPageTemplate>
+        <CreateForm onSubmit={onCreateByEmail} form={form}>
+          <Button
+            appearance="primary"
+            type="submit"
+            onClick={form?.handleSubmit(onCreateByEmail)}
+            className={styles.submitButton}
+          >
+            {t('Create Account')}
+          </Button>
+        </CreateForm>
 
-      {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+        {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
-      <div className={styles.footer}>
-        <span className={styles.footerText}>{t('Already have an account?')}</span>
-        <Button appearance="transparent" onClick={onGoToLogin}>
-          {t('Sign in here')}
-        </Button>
-      </div>
+        <div className={styles.footer}>
+          <span className={styles.footerText}>{t('Already have an account?')}</span>
+          <Button appearance="transparent" onClick={onGoToLogin}>
+            {t('Sign in here')}
+          </Button>
+        </div>
+      </AuthPageTemplate>
     </PublicTemplate>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from '../db';
 import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/PublicTemplate';
+import { AuthPageTemplate } from '../components/AuthPageTemplate';
 import { Button } from '../components/Button';
 import { LoginForm } from '../features/auth/LoginForm';
 
@@ -94,60 +95,62 @@ export const Login = () => {
 
   return (
     <PublicTemplate>
-      <LoginForm onSubmit={onLoginByEmail} form={form}>
-        <Button
-          appearance="primary"
-          type="submit"
-          onClick={form?.handleSubmit(onLoginByEmail)}
-          className={styles.submitButton}
-        >
-          {t('Sign in')}
-        </Button>
-      </LoginForm>
+      <AuthPageTemplate>
+        <LoginForm onSubmit={onLoginByEmail} form={form}>
+          <Button
+            appearance="primary"
+            type="submit"
+            onClick={form?.handleSubmit(onLoginByEmail)}
+            className={styles.submitButton}
+          >
+            {t('Sign in')}
+          </Button>
+        </LoginForm>
 
-      <div className={styles.divider}>
-        <div className={styles.dividerLine} />
-        <span className={styles.dividerText}>{t('or')}</span>
-        <div className={styles.dividerLine} />
-      </div>
+        <div className={styles.divider}>
+          <div className={styles.dividerLine} />
+          <span className={styles.dividerText}>{t('or')}</span>
+          <div className={styles.dividerLine} />
+        </div>
 
-      <div className={styles.socialButtons}>
-        <Button
-          appearance="subtle"
-          icon={
-            <img
-              src="https://authjs.dev/img/providers/google.svg"
-              className={styles.socialIcon}
-              alt="Google"
-            />
-          }
-          onClick={onLoginByGoogle}
-        >
-          Google
-        </Button>
-        <Button
-          appearance="subtle"
-          icon={
-            <img
-              src="https://authjs.dev/img/providers/facebook.svg"
-              className={styles.socialIcon}
-              alt="Facebook"
-            />
-          }
-          onClick={onLoginByFB}
-        >
-          Facebook
-        </Button>
-      </div>
+        <div className={styles.socialButtons}>
+          <Button
+            appearance="subtle"
+            icon={
+              <img
+                src="https://authjs.dev/img/providers/google.svg"
+                className={styles.socialIcon}
+                alt="Google"
+              />
+            }
+            onClick={onLoginByGoogle}
+          >
+            Google
+          </Button>
+          <Button
+            appearance="subtle"
+            icon={
+              <img
+                src="https://authjs.dev/img/providers/facebook.svg"
+                className={styles.socialIcon}
+                alt="Facebook"
+              />
+            }
+            onClick={onLoginByFB}
+          >
+            Facebook
+          </Button>
+        </div>
 
-      {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+        {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
-      <div className={styles.footer}>
-        <span className={styles.footerText}>{t("Don't have an account?")}</span>
-        <Button appearance="transparent" onClick={onGoToCreate}>
-          {t('Create new account')}
-        </Button>
-      </div>
+        <div className={styles.footer}>
+          <span className={styles.footerText}>{t("Don't have an account?")}</span>
+          <Button appearance="transparent" onClick={onGoToCreate}>
+            {t('Create new account')}
+          </Button>
+        </div>
+      </AuthPageTemplate>
     </PublicTemplate>
   );
 };
