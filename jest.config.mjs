@@ -21,8 +21,21 @@ const config = {
     '<rootDir>/src/**/__tests__/**/*.{ts,tsx,js,jsx}',
     '<rootDir>/src/**/*.{spec,test}.{ts,tsx,js,jsx}',
   ],
-  // Optional: Extend jest-dom matchers
   setupFilesAfterEnv: ['<rootDir>/.config/tests/setupTests.js', '@testing-library/jest-dom'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx}',
+    '!src/index.jsx',
+    '!src/db/firebase.js',
+    '!**/node_modules/**',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 50,
+      functions: 50,
+      lines: 50,
+      statements: 50,
+    },
+  },
 };
 
 export default config;

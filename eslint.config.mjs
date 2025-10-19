@@ -15,7 +15,7 @@ const config = [
   {
     files: [
       'eslint.config.js',
-      '.config/**/*.{js,ts,mjs}',
+      '.config/rspack/*.{js,ts,mjs}',
       'commitlint.config.js',
       'jest.config.mjs',
     ],
@@ -43,12 +43,12 @@ const config = [
   // React files configuration
   {
     files: ['src/**/*.{js,jsx}'],
+    ignores: ['src/**/*.{test,spec}.{js,jsx}', 'src/**/__tests__/**'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
         ...globals.browser,
-        ...globals.jest,
         process: 'readonly',
       },
       parserOptions: {
@@ -71,6 +71,43 @@ const config = [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'error',
+    },
+  },
+
+  // Test files configuration
+  {
+    files: [
+      'src/**/*.{test,spec}.{js,jsx}',
+      'src/**/__tests__/**/*.{js,jsx}',
+      '.config/tests/*.{js,ts,mjs}',
+    ],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.jest,
+        process: 'readonly',
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
+    settings: {
+      react: { version: 'detect' },
+    },
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      'react/jsx-uses-react': 'off',
+      'react/jsx-uses-vars': 'error',
+      'no-undef': 'off', // Jest globals are handled by globals.jest
     },
   },
 

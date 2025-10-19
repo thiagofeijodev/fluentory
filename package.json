@@ -14,7 +14,9 @@
     "lint": "eslint 'src/**/*.{js,jsx}' --max-warnings 0",
     "format": "prettier --write .",
     "test": "jest --maxConcurrency=2 --maxWorkers=2",
-    "test:ci": "jest --json --outputFile=test-results/jest-results.json",
+    "test:watch": "jest --watch --maxConcurrency=2 --maxWorkers=2",
+    "test:coverage": "jest --coverage --maxConcurrency=2 --maxWorkers=2",
+    "test:ci": "jest --json --outputFile=test-results/jest-results.json --coverage",
     "prepare": "husky"
   },
   "dependencies": {

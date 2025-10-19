@@ -26,6 +26,7 @@ export const EmptyStateTemplate = () => {
         height="667"
         fill="none"
         viewBox="0 0 933 667"
+        data-testid="empty-state-svg"
       >
         <g clipPath="url(#clip0_609_193)">
           <mask
