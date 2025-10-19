@@ -1,17 +1,7 @@
 import { Button, Card, CardHeader, Text, Caption1, Badge } from '@fluentui/react-components';
-import {
-  MoreHorizontal20Regular,
-  CheckmarkCircle20Regular,
-  Circle20Regular,
-} from '@fluentui/react-icons';
+import { CheckmarkCircle20Regular, Circle20Regular } from '@fluentui/react-icons';
 
-export const CardItemList = ({
-  name,
-  description,
-  status = 'learning',
-  onStatusChange,
-  onMore,
-}) => {
+export const CardItemList = ({ name, description, status = 'learning', onStatusChange }) => {
   const isLearned = status === 'learned';
   const statusColor = isLearned ? 'success' : 'informative';
   const statusLabel = isLearned ? 'Learned' : 'Learning';
@@ -35,13 +25,6 @@ export const CardItemList = ({
               icon={isLearned ? <CheckmarkCircle20Regular /> : <Circle20Regular />}
               onClick={() => onStatusChange?.(isLearned ? 'learning' : 'learned')}
               aria-label={`Mark as ${isLearned ? 'learning' : 'learned'}`}
-              size="small"
-            />
-            <Button
-              appearance="transparent"
-              icon={<MoreHorizontal20Regular />}
-              onClick={() => onMore?.()}
-              aria-label="More options"
               size="small"
             />
           </div>

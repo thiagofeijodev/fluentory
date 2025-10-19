@@ -5,6 +5,7 @@ import { Login } from './pages/Login';
 import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
 import { Create } from './pages/Create';
+import { Flashcards } from './pages/Flashcards';
 
 const basename = window.location.pathname.includes('/fluentory/') ? '/fluentory' : '/';
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter(
               element: <Settings />,
             },
           ],
+        },
+        {
+          path: 'flashcards',
+          element: <Flashcards />,
         },
       ],
     },
