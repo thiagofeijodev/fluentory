@@ -1,7 +1,19 @@
 import { Button, Card, CardHeader, Text, Caption1, Badge } from '@fluentui/react-components';
-import { CheckmarkCircle20Regular, Circle20Regular } from '@fluentui/react-icons';
+import {
+  CheckmarkCircle20Regular,
+  Circle20Regular,
+  Delete20Regular,
+  Edit20Regular,
+} from '@fluentui/react-icons';
 
-export const CardItemList = ({ name, description, status = 'learning', onStatusChange }) => {
+export const CardItemList = ({
+  name,
+  description,
+  status = 'learning',
+  onStatusChange,
+  onEdit,
+  onDelete,
+}) => {
   const isLearned = status === 'learned';
   const statusColor = isLearned ? 'success' : 'informative';
   const statusLabel = isLearned ? 'Learned' : 'Learning';
@@ -25,6 +37,20 @@ export const CardItemList = ({ name, description, status = 'learning', onStatusC
               icon={isLearned ? <CheckmarkCircle20Regular /> : <Circle20Regular />}
               onClick={() => onStatusChange?.(isLearned ? 'learning' : 'learned')}
               aria-label={`Mark as ${isLearned ? 'learning' : 'learned'}`}
+              size="small"
+            />
+            <Button
+              appearance="transparent"
+              icon={<Edit20Regular />}
+              onClick={() => onEdit?.()}
+              aria-label="Edit word"
+              size="small"
+            />
+            <Button
+              appearance="transparent"
+              icon={<Delete20Regular />}
+              onClick={() => onDelete?.()}
+              aria-label="Delete word"
               size="small"
             />
           </div>

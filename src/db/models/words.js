@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { query, where, onSnapshot } from 'firebase/firestore';
 import { app } from '../firebase';
 
@@ -41,5 +41,28 @@ export async function updateWordStatus(wordId, newStatus) {
     console.log('Word status updated: ', wordId);
   } catch (e) {
     console.error('Error updating document: ', e);
+  }
+}
+
+export async function updateWord(wordId, data) {
+  const db = getFirestore(app);
+
+  try {
+    const wordRef = doc(db, 'words', wordId);
+    await updateDoc(wordRef, data);
+    console.log('Word updated: ', wordId);
+  } catch (e) {
+    console.error('Error updating document: ', e);
+  }
+}
+
+export async function deleteWord(wordId) {
+  const db = getFirestore(app);
+
+  try {
+    await deleteDoc(doc(db, 'words', wordId));
+    console.log('Word deleted: ', wordId);
+  } catch (e) {
+    console.error('Error deleting document: ', e);
   }
 }
