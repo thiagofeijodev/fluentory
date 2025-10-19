@@ -4,7 +4,7 @@ import {
   ChevronLeft20Regular,
   ChevronRight20Regular,
 } from '@fluentui/react-icons';
-import { useLanguage } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 
 const useStyles = makeStyles({
   controls: {

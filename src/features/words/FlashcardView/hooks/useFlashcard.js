@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from '../../../hooks/useQuery';
-import { fetchAllWords } from '../../../db';
-import { fetchWordMetadataFromApi } from '../../../services/fetchWordMetadataFromApi';
+import { useQuery } from '../../../../hooks/useQuery';
+import { fetchAllWords } from '../../../../db';
+import { fetchWordMetadataFromApi } from '../../../../services/fetchWordMetadataFromApi';
 
 export const useFlashcard = () => {
   const { data: words, isLoading: isLoadingWords } = useQuery(fetchAllWords, []);

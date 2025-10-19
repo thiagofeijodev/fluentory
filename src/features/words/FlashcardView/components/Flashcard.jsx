@@ -1,5 +1,5 @@
 import { makeStyles } from '@fluentui/react-components';
-import { useLanguage } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 
 const useStyles = makeStyles({
   card: {
