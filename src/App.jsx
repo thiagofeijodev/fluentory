@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
 import { Create } from './pages/Create';
 import { Flashcards } from './pages/Flashcards';
+import { ErrorPage } from './pages/ErrorPage';
 
 const basename = window.location.pathname.includes('/fluentory/') ? '/fluentory' : '/';
 
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: <PrivateTemplate />,
+      errorElement: <ErrorPage />,
       children: [
         {
           index: '/',
