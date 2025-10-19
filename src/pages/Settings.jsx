@@ -5,6 +5,7 @@ import { Persona } from '../components/Persona';
 import SettingsTemplate from '../components/SettingsTemplate';
 import { useAuth } from '../hooks/useAuth';
 import { SettingsForm } from '../features/settings/SettingsForm';
+import { ChangePasswordForm } from '../features/settings/ChangePasswordForm';
 import { logout } from '../db';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -45,6 +46,7 @@ export const Settings = () => {
           }}
         />
         <SettingsForm />
+        <ChangePasswordForm />
         <Button
           appearance="secondary"
           icon={<SignOut20Regular />}

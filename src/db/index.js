@@ -9,4 +9,5 @@ export {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from 'firebase/auth';
