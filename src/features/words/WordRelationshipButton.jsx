@@ -3,7 +3,7 @@ import { Button } from '@fluentui/react-components';
 import { ChartMultiple20Regular } from '@fluentui/react-icons';
 import { useLanguage } from '../../hooks/useLanguage';
 
-const WordRelationshipButton = () => {
+export const WordRelationshipButton = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
@@ -21,5 +21,3 @@ const WordRelationshipButton = () => {
     </Button>
   );
 };
-
-export default WordRelationshipButton;

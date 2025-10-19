@@ -5,8 +5,8 @@ import { wordsToCytoscapeDataTranform } from '../../transforms/wordsToCytoscapeD
 
 const useStyles = makeStyles({
   container: {
-    width: '100%',
-    height: '600px',
+    width: '100vw',
+    height: '100vh',
   },
 });
 

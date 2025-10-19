@@ -12,7 +12,7 @@ import {
 import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/PublicTemplate';
 import { Button } from '../components/Button';
-import LoginForm from '../features/auth/LoginForm';
+import { LoginForm } from '../features/auth/LoginForm';
 
 const useStyles = makeStyles({
   submitButton: {

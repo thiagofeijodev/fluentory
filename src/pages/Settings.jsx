@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, makeStyles } from '@fluentui/react-components';
 import { SignOut20Regular } from '@fluentui/react-icons';
 import { Persona } from '../components/Persona';
-import SettingsTemplate from '../components/SettingsTemplate';
+import { SettingsTemplate } from '../components/SettingsTemplate';
 import { useAuth } from '../hooks/useAuth';
 import { SettingsForm } from '../features/settings/SettingsForm';
 import { ChangePasswordForm } from '../features/settings/ChangePasswordForm';

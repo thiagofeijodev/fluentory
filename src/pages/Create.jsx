@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { makeStyles, tokens } from '@fluentui/react-components';
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword } from '../db';
 import { Button } from '../components/Button';
-import CreateForm from '../features/auth/CreateForm';
+import { CreateForm } from '../features/auth/CreateForm';
 import { useLanguage } from '../hooks/useLanguage';
 import { PublicTemplate } from '../components/PublicTemplate';
 
@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 
 export const Create = () => {
   const { t } = useLanguage();
+  const styles = useStyles();
   const auth = getAuth();
   const navigate = useNavigate();
   const form = useForm();
@@ -57,8 +58,6 @@ export const Create = () => {
   const onCreateByEmail = (data) => {
     createUserWithEmailAndPassword(auth, data.email, data.password).then(onSuccess).catch(onError);
   };
-
-  const styles = useStyles();
 
   return (
     <PublicTemplate>
