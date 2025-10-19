@@ -2,6 +2,7 @@ import { makeStyles } from '@fluentui/react-components';
 import { ListPageTemplate } from '../components/ListPageTemplate';
 import { QuickAddWord } from '../features/words/QuickAddWord';
 import { WordList } from '../features/words/WordList';
+import FlashcardsButton from '../features/words/FlashcardsButton';
 
 const useStyles = makeStyles({
   container: {
@@ -32,6 +33,7 @@ export const Home = () => {
     <ListPageTemplate>
       <div className={styles.container}>
         <QuickAddWord />
+        <FlashcardsButton />
       </div>
       <WordList />
     </ListPageTemplate>

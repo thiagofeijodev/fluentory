@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { WordList } from './WordList';
 import * as _db from '../../db';
 
@@ -8,12 +9,18 @@ jest.mock('../../db');
 jest.mock('../../hooks/useQuery');
 jest.mock('../../hooks/useLanguage');
 
-const db = { ..._db };
-
 // Mock useQuery hook
 const mockUseQuery = require('../../hooks/useQuery').useQuery;
 // Mock useLanguage hook
 const mockUseLanguage = require('../../hooks/useLanguage').useLanguage;
+
+// Get mocked db functions
+const mockUpdateWordStatus = _db.updateWordStatus;
+
+// Helper to render with Router
+const renderWithRouter = (component) => {
+  return render(<BrowserRouter>{component}</BrowserRouter>);
+};
 
 describe('WordList Component', () => {
   const mockWords = [
@@ -36,7 +43,7 @@ describe('WordList Component', () => {
         isLoading: true,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       expect(screen.getByText(/Loading/i)).toBeInTheDocument();
     });
@@ -49,7 +56,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       // EmptyStateTemplate renders SVG element
       const svgElement = screen.getByTestId('empty-state-svg', { hidden: true });
@@ -64,7 +71,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       // Verify heading is shown
       expect(screen.getByText('Words:')).toBeInTheDocument();
@@ -86,7 +93,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       expect(screen.getByText('Filter:')).toBeInTheDocument();
       expect(screen.getByLabelText('Learning')).toBeInTheDocument();
@@ -106,7 +113,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       // Uncheck "Learned" to show only learning words
       const learnedCheckbox = screen.getByLabelText('Learned');
@@ -132,7 +139,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       // Uncheck "Learning" to show only learned words
       const learningCheckbox = screen.getByLabelText('Learning');
@@ -158,7 +165,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       const learningCheckbox = screen.getByLabelText('Learning');
       const learnedCheckbox = screen.getByLabelText('Learned');
@@ -186,7 +193,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       const learnedCheckbox = screen.getByLabelText('Learned');
 
@@ -206,39 +213,37 @@ describe('WordList Component', () => {
   describe('Word Status Updates', () => {
     test('should call updateWordStatus with correct parameters when status button clicked', async () => {
       const user = userEvent.setup();
-      db.updateWordStatus = jest.fn();
 
       mockUseQuery.mockReturnValue({
         data: mockWords,
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       // Find the first word's status button
       const statusButtons = screen.getAllByLabelText(/Mark as/);
       await user.click(statusButtons[0]);
 
-      expect(db.updateWordStatus).toHaveBeenCalled();
-      expect(db.updateWordStatus).toHaveBeenCalledWith('1', expect.any(String));
+      expect(mockUpdateWordStatus).toHaveBeenCalled();
+      expect(mockUpdateWordStatus).toHaveBeenCalledWith('1', expect.any(String));
     });
 
     test('should pass word id and new status to updateWordStatus callback', async () => {
       const user = userEvent.setup();
-      db.updateWordStatus = jest.fn();
 
       mockUseQuery.mockReturnValue({
         data: mockWords,
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       const statusButtons = screen.getAllByLabelText(/Mark as/);
       // Click first word's status button (Hello - learning status)
       await user.click(statusButtons[0]);
 
-      expect(db.updateWordStatus).toHaveBeenCalledWith(
+      expect(mockUpdateWordStatus).toHaveBeenCalledWith(
         '1',
         expect.stringMatching(/^(learning|learned)$/),
       );
@@ -256,7 +261,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       expect(screen.getByText('Hello')).toBeInTheDocument();
     });
@@ -269,7 +274,7 @@ describe('WordList Component', () => {
         isLoading: false,
       });
 
-      render(<WordList />);
+      renderWithRouter(<WordList />);
 
       expect(screen.getByText('Hello')).toBeInTheDocument();
     });
