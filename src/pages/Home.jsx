@@ -1,6 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-import { Button, makeStyles } from '@fluentui/react-components';
-import { CardUi20Regular } from '@fluentui/react-icons';
+import { makeStyles } from '@fluentui/react-components';
 import { ListPageTemplate } from '../components/ListPageTemplate';
 import { QuickAddWord } from '../features/words/QuickAddWord';
 import { WordList } from '../features/words/WordList';
@@ -12,30 +10,28 @@ const useStyles = makeStyles({
     gap: '16px',
     marginBottom: '20px',
   },
-  inputContainer: {
+  floatingButton: {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    zIndex: 1000,
+    borderRadius: '50%',
+    width: '90px',
+    height: '90px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
     display: 'flex',
-    gap: '12px',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
 export const Home = () => {
-  const navigate = useNavigate();
   const styles = useStyles();
-
-  const handleFlashcards = () => {
-    navigate('/flashcards');
-  };
 
   return (
     <ListPageTemplate>
       <div className={styles.container}>
-        <div className={styles.inputContainer}>
-          <QuickAddWord />
-          <Button appearance="secondary" icon={<CardUi20Regular />} onClick={handleFlashcards}>
-            Flashcards
-          </Button>
-        </div>
+        <QuickAddWord />
       </div>
       <WordList />
     </ListPageTemplate>

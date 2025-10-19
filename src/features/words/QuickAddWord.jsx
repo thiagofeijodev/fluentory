@@ -7,7 +7,6 @@ import { useAuth } from '../../hooks/useAuth';
 const useStyles = makeStyles({
   container: {
     width: '100%',
-    maxWidth: '400px',
   },
 });
 

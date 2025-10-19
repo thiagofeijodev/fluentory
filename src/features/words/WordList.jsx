@@ -1,5 +1,7 @@
-import { makeStyles, Spinner, Checkbox } from '@fluentui/react-components';
+import { makeStyles, Button, Spinner, Checkbox } from '@fluentui/react-components';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CardUi20Regular } from '@fluentui/react-icons';
 import { fetchAllWords, updateWordStatus, deleteWord } from '../../db';
 import { EmptyStateTemplate } from '../../components/EmptyStateTemplate';
 import { CardItemList } from '../../components/CardItemList';
@@ -16,6 +18,8 @@ const useStyles = makeStyles({
     'list-style-type': 'none',
     margin: 0,
     padding: 0,
+    maxHeight: 'calc(100vh - 320px)',
+    overflowY: 'auto',
   },
   filterContainer: {
     display: 'flex',
@@ -32,8 +36,13 @@ const useStyles = makeStyles({
 });
 
 export const WordList = () => {
+  const navigate = useNavigate();
   const styles = useStyles();
   const { t } = useLanguage();
+
+  const handleFlashcards = () => {
+    navigate('/flashcards');
+  };
   const [filters, setFilters] = React.useState({
     showLearning: true,
     showLearned: true,
@@ -77,8 +86,9 @@ export const WordList = () => {
 
   return (
     <>
-      <h1>{t('Words')}:</h1>
-
+      <Button icon={<CardUi20Regular />} onClick={handleFlashcards}>
+        {t('Flashcards')}
+      </Button>
       {/* Filter Section */}
       <div className={styles.filterContainer}>
         <span style={{ fontWeight: '500' }}>Filter:</span>
@@ -106,6 +116,11 @@ export const WordList = () => {
         </div>
       </div>
 
+      {/* Edit Word Dialog */}
+      <EditWordDialog word={editingWord} open={editDialogOpen} onOpenChange={setEditDialogOpen} />
+
+      <h1>{t('Words')}:</h1>
+
       {/* Words List */}
       {filteredWords.length === 0 ? (
         <EmptyStateTemplate />
@@ -125,9 +140,6 @@ export const WordList = () => {
           ))}
         </ul>
       )}
-
-      {/* Edit Word Dialog */}
-      <EditWordDialog word={editingWord} open={editDialogOpen} onOpenChange={setEditDialogOpen} />
     </>
   );
 };
