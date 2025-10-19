@@ -1,4 +1,4 @@
-import { makeStyles, Spinner } from '@fluentui/react-components';
+import { Button, makeStyles, Spinner } from '@fluentui/react-components';
 import { EmptyStateTemplate } from '../../../components/EmptyStateTemplate';
 import { useLanguage } from '../../../hooks/useLanguage';
 import { useFlashcard } from './hooks/useFlashcard';
@@ -43,7 +43,15 @@ export const FlashcardView = ({ onBack }) => {
   }
 
   if (!words || words.length === 0) {
-    return <EmptyStateTemplate />;
+    return (
+      <div className={styles.container}>
+        <p>{t('No words available')}</p>
+        <EmptyStateTemplate />
+        <Button appearance="primary" onClick={onBack}>
+          {t('Back')}
+        </Button>
+      </div>
+    );
   }
 
   return (

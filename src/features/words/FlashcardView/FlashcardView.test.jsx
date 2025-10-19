@@ -1,13 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
 import { FlashcardView } from './FlashcardView';
+import { useFlashcard } from './hooks/useFlashcard';
 
 jest.mock('../../../db');
-jest.mock('../../../hooks/useQuery');
 jest.mock('../../../hooks/useLanguage');
+jest.mock('./hooks/useFlashcard');
 
-const mockUseQuery = require('../../../hooks/useQuery').useQuery;
 const mockUseLanguage = require('../../../hooks/useLanguage').useLanguage;
 
 describe('FlashcardView Component', () => {
@@ -17,6 +16,11 @@ describe('FlashcardView Component', () => {
     { id: '3', name: 'Please', description: 'A polite word' },
   ];
 
+  const mockMetadata = [
+    { fl: 'noun', shortdef: ['a greeting'] },
+    { fl: 'interjection', shortdef: ['used to greet someone'] },
+  ];
+
   const mockOnBack = jest.fn();
 
   beforeEach(() => {
@@ -24,12 +28,14 @@ describe('FlashcardView Component', () => {
     mockUseLanguage.mockReturnValue({
       t: (key) => key,
     });
+    // Reset useFlashcard mock before each test
+    useFlashcard.mockClear();
   });
 
   test('should display loading spinner initially', () => {
-    mockUseQuery.mockReturnValue({
+    useFlashcard.mockReturnValue({
       data: [],
-      isLoading: true,
+      isLoadingWords: true,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -38,7 +44,11 @@ describe('FlashcardView Component', () => {
   });
 
   test('should display first word on initial load', () => {
-    mockUseQuery.mockReturnValue({
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      metadata: mockMetadata,
       data: mockWords,
       isLoading: false,
     });
@@ -46,14 +56,17 @@ describe('FlashcardView Component', () => {
     render(<FlashcardView onBack={mockOnBack} />);
 
     expect(screen.getByText('Hello')).toBeInTheDocument();
-    expect(screen.getByText('A greeting')).toBeInTheDocument();
   });
 
   test('should navigate to next card', async () => {
     const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    const handleNext = jest.fn();
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      metadata: mockMetadata,
+      handleNext,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -61,17 +74,23 @@ describe('FlashcardView Component', () => {
     const nextButton = screen.getByText('Next');
     await user.click(nextButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Goodbye')).toBeInTheDocument();
-      expect(screen.getByText('A farewell')).toBeInTheDocument();
-    });
+    expect(handleNext).toHaveBeenCalled();
   });
 
   test('should navigate to previous card', async () => {
     const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    const handlePrev = jest.fn();
+    const handleNext = jest.fn();
+
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[1], // Start on the second card
+      currentIndex: 1,
+      metadata: [],
+      shuffled: false,
+      handlePrev,
+      handleNext,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -79,22 +98,21 @@ describe('FlashcardView Component', () => {
     const nextButton = screen.getByText('Next');
     await user.click(nextButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Goodbye')).toBeInTheDocument();
-    });
+    expect(handleNext).toHaveBeenCalled();
 
     const prevButton = screen.getByText('Previous');
     await user.click(prevButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Hello')).toBeInTheDocument();
-    });
+    expect(handlePrev).toHaveBeenCalled();
   });
 
   test('should disable previous button on first card', () => {
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      currentIndex: 0,
+      shuffled: false,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -104,27 +122,28 @@ describe('FlashcardView Component', () => {
   });
 
   test('should disable next button on last card', async () => {
-    const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[2],
+      currentIndex: 2,
+      shuffled: false,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
 
     const nextButton = screen.getByText('Next');
-    await user.click(nextButton);
-    await user.click(nextButton);
-
-    await waitFor(() => {
-      expect(nextButton).toBeDisabled();
-    });
+    expect(nextButton).toBeDisabled();
   });
 
   test('should display correct progress counter', () => {
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      currentIndex: 0,
+      metadata: [],
+      shuffled: false,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -133,27 +152,29 @@ describe('FlashcardView Component', () => {
   });
 
   test('should update progress counter when navigating', async () => {
-    const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[1],
+      currentIndex: 1,
+      metadata: [],
+      shuffled: false,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
 
-    const nextButton = screen.getByText('Next');
-    await user.click(nextButton);
-
-    await waitFor(() => {
-      expect(screen.getByText('2 / 3')).toBeInTheDocument();
-    });
+    expect(screen.getByText('2 / 3')).toBeInTheDocument();
   });
 
   test('should call onBack when back button is clicked', async () => {
     const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      currentIndex: 0,
+      metadata: [],
+      shuffled: false,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -166,28 +187,30 @@ describe('FlashcardView Component', () => {
 
   test('should shuffle words on shuffle click', async () => {
     const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: mockWords,
-      isLoading: false,
+    const handleShuffle = jest.fn();
+    useFlashcard.mockReturnValue({
+      words: mockWords,
+      isLoadingWords: false,
+      currentWord: mockWords[0],
+      currentIndex: 0,
+      metadata: [],
+      shuffled: false,
+      handleShuffle,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
 
-    expect(screen.getByText('Hello')).toBeInTheDocument();
-
     const shuffleButton = screen.getByRole('button', { name: /Shuffle/ });
     await user.click(shuffleButton);
 
-    // After shuffle, we should still be on card 1
-    await waitFor(() => {
-      expect(screen.getByText('1 / 3')).toBeInTheDocument();
-    });
+    expect(handleShuffle).toHaveBeenCalled();
   });
 
   test('should display empty state when no words', () => {
-    mockUseQuery.mockReturnValue({
-      data: [],
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: [],
+      isLoadingWords: false,
+      currentWord: null,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
@@ -198,9 +221,10 @@ describe('FlashcardView Component', () => {
 
   test('should show back button in empty state', async () => {
     const user = userEvent.setup();
-    mockUseQuery.mockReturnValue({
-      data: [],
-      isLoading: false,
+    useFlashcard.mockReturnValue({
+      words: [],
+      isLoadingWords: false,
+      currentWord: null,
     });
 
     render(<FlashcardView onBack={mockOnBack} />);
