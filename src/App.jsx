@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { TabsLayout } from './components/TabsLayout/TabsLayout';
 import { PrivateTemplate } from './components/PrivateTemplate';
 import { Login } from './pages/Login';
+import { WordRelationshipPage } from './pages/WordRelationshipPage';
 import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
 import { Create } from './pages/Create';
@@ -32,6 +33,10 @@ const router = createBrowserRouter(
         {
           path: 'flashcards',
           element: <Flashcards />,
+        },
+        {
+          path: 'words',
+          element: <WordRelationshipPage />,
         },
       ],
     },

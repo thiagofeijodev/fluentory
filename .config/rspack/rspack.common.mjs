@@ -20,6 +20,7 @@ export default {
       'MESSAGING_SENDER_ID',
       'APPID',
       'MEASUREMENT_ID',
+      'REACT_APP_MERRIAM_WEBSTER_API_KEY',
     ]),
     new rspack.CopyRspackPlugin({
       patterns: [
