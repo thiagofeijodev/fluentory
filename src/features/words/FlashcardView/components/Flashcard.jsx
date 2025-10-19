@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Button, makeStyles, Spinner } from '@fluentui/react-components';
-import { getAI, getGenerativeModel } from 'firebase/ai';
 import { useLanguage } from '../../../../hooks/useLanguage';
-import { app } from '../../../../db/firebase';
+import { handleProvideSimilarWordsToAskAI } from '../../../../db/ai/words';
 import { Sparkle24Filled } from '@fluentui/react-icons';
 
 const useStyles = makeStyles({
@@ -71,15 +70,7 @@ export const Flashcard = ({ word, description }) => {
     }));
 
     try {
-      const ai = getAI(app);
-      const model = getGenerativeModel(ai, { model: 'gemini-2.5-flash' });
-
-      const prompt = `Provide 5 similar words to "${word.name}". Return only a comma-separated list of the words.`;
-
-      const result = await model.generateContent(prompt);
-      const response = result.response;
-      const text = response.text();
-
+      const text = await handleProvideSimilarWordsToAskAI(word);
       setSimilarWords((prev) => ({
         ...prev,
         [word.name]: text.split(',').map((w) => w.trim()),

@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '../../../../hooks/useQuery';
 import { fetchAllWords } from '../../../../db';
 import { fetchWordMetadataFromApi } from '../../../../services/fetchWordMetadataFromApi';
+import { useLanguage } from '../../../../hooks/useLanguage';
 
 export const useFlashcard = () => {
+  const { t } = useLanguage();
   const { data: words, isLoading: isLoadingWords } = useQuery(fetchAllWords, []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [metadata, setMetadata] = useState(null);
@@ -11,6 +13,34 @@ export const useFlashcard = () => {
   const [shuffled, setShuffled] = useState(false);
 
   const currentWord = words?.[currentIndex];
+
+  const description = (() => {
+    if (isLoadingMetadata) {
+      return `${t('Loading definition')}...`;
+    }
+    if (!metadata?.length) {
+      return t('No definition found.');
+    }
+    return metadata.map((def) => `(${def.fl}) ${def.shortdef.join(', ')}`).join('\n');
+  })();
+
+  const handleNext = () => {
+    if (!words || words.length === 0) return;
+    if (shuffled) {
+      setCurrentIndex(Math.floor(Math.random() * words.length));
+      return;
+    }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
+  };
+
+  const handlePrev = () => {
+    if (!words || words.length === 0) return;
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + words.length) % words.length);
+  };
+
+  const handleShuffle = () => {
+    setShuffled((s) => !s);
+  };
 
   useEffect(() => {
     if (currentWord) {
@@ -40,31 +70,12 @@ export const useFlashcard = () => {
     }
   }, [currentWord]);
 
-  const handleNext = () => {
-    if (!words || words.length === 0) return;
-    if (shuffled) {
-      setCurrentIndex(Math.floor(Math.random() * words.length));
-      return;
-    }
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
-  };
-
-  const handlePrev = () => {
-    if (!words || words.length === 0) return;
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + words.length) % words.length);
-  };
-
-  const handleShuffle = () => {
-    setShuffled((s) => !s);
-  };
-
   return {
     words,
     isLoadingWords,
     currentWord,
     currentIndex,
-    metadata,
-    isLoadingMetadata,
+    description,
     shuffled,
     handleNext,
     handlePrev,

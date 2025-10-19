@@ -25,18 +25,12 @@ export const FlashcardView = ({ onBack }) => {
     isLoadingWords,
     currentWord,
     currentIndex,
-    metadata,
-    isLoadingMetadata,
+    description,
     shuffled,
     handleNext,
     handlePrev,
     handleShuffle,
   } = useFlashcard();
-
-  const description = isLoadingMetadata
-    ? `${t('Loading definition')}...`
-    : metadata?.map((def) => `(${def.fl}) ${def.shortdef.join(', ')}`).join('\n') ||
-      t('No definition found.');
 
   if (isLoadingWords) {
     return <Spinner label={`${t('Loading words')}...`} />;
