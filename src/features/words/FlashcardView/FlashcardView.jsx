@@ -10,10 +10,16 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
+    justifyContent: 'space-between',
+    height: '100vh',
     padding: '20px',
     gap: '30px',
+    boxSizing: 'border-box',
+  },
+  cardContainer: {
+    flexGrow: 1,
+    display: 'flex',
+    width: '100%',
   },
 });
 
@@ -50,7 +56,9 @@ export const FlashcardView = ({ onBack }) => {
 
   return (
     <div className={styles.container}>
-      <Flashcard word={currentWord} description={description} />
+      <div className={styles.cardContainer}>
+        <Flashcard word={currentWord} description={description} />
+      </div>
 
       <FlashcardControls
         onPrev={handlePrev}

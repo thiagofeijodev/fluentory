@@ -6,11 +6,11 @@ const isMobile = IS_MOBILE.test(navigator.userAgent);
 const useStyles = makeStyles({
   root: {
     display: 'flex',
-    height: '100%',
+    height: '100dvh',
     'flex-direction': isMobile ? 'column-reverse' : 'column',
   },
   page: {
-    height: '100%',
+    height: '100dvh',
     'box-sizing': 'content-box',
   },
   tabContainer: {

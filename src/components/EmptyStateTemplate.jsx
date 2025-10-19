@@ -1,4 +1,5 @@
-import { makeStyles } from '@fluentui/react-components';
+import { makeStyles, tokens } from '@fluentui/react-components';
+import { useTheme } from '../hooks/useTheme';
 
 const useStyles = makeStyles({
   root: {
@@ -16,6 +17,8 @@ const useStyles = makeStyles({
 
 export const EmptyStateTemplate = () => {
   const styles = useStyles();
+  const theme = useTheme();
+  console.log(theme);
 
   return (
     <div className={styles.root}>
@@ -42,7 +45,7 @@ export const EmptyStateTemplate = () => {
           </mask>
           <g mask="url(#mask0_609_193)">
             <path
-              fill="#F5F5FF"
+              fill={tokens.colorNeutralBackground2}
               d="M695.698 294.37c0 122.176-138.943 221.22-310.339 221.22-171.395 0-310.337-99.044-310.337-221.22S213.964 73.15 385.359 73.15c171.396 0 310.339 99.044 310.339 221.22z"
             ></path>
           </g>
@@ -59,11 +62,11 @@ export const EmptyStateTemplate = () => {
           </mask>
           <g mask="url(#mask1_609_193)">
             <path
-              fill="#DFDFEB"
+              fill={tokens.colorNeutralBackground2}
               d="M862.046 586.278c0 10.855-63.427 19.655-141.668 19.655-78.242 0-141.668-8.8-141.668-19.655 0-10.854 63.426-19.654 141.668-19.654 78.241 0 141.668 8.8 141.668 19.654z"
             ></path>
             <path
-              fill="#DFDFEB"
+              fill={tokens.colorNeutralBackground2}
               d="M679.371 595.763c0 12.037-114.584 21.794-255.931 21.794-141.346 0-255.93-9.757-255.93-21.794 0-12.038 114.584-21.795 255.93-21.795 141.347 0 255.931 9.757 255.931 21.795z"
             ></path>
             <path

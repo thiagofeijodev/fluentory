@@ -32,7 +32,7 @@ export const WordRelationshipPage = () => {
   const styles = useStyles();
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [showSynonyms, setShowSynonyms] = useState(true);
+  const [showSynonyms, setShowSynonyms] = useState(false);
 
   const { data: words, isLoading: isLoadingWords } = useQuery(fetchAllWords, []);
   const { data: wordRelationships, isLoading: isLoadingSynonyms } = useSynonyms(words);

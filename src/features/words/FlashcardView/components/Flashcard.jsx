@@ -22,6 +22,14 @@ const useStyles = makeStyles({
   cardContent: {
     textAlign: 'center',
   },
+  cardDescriptionContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '100%',
+    textAlign: 'center',
+  },
   word: {
     fontSize: '32px',
     fontWeight: 'bold',
@@ -88,11 +96,24 @@ export const Flashcard = ({ word, description }) => {
         <div className={styles.label}>{t('Word')}</div>
         <p className={styles.word}>{word?.name}</p>
       </div>
-      <div className={styles.cardContent}>
-        <div className={styles.label}>{t('Definition')}</div>
-        <p className={styles.description}>{description}</p>
-      </div>
-      <div className={styles.aiContainer}>
+      <div className={styles.cardDescriptionContent}>
+        <div />
+        <div>
+          <div className={styles.label}>{t('Definition')}</div>
+          <p className={styles.description}>{description}</p>
+        </div>
+
+        {isLoading && <Spinner label={`${t('Thinking')}...`} />}
+
+        {!!listFromAI.length && (
+          <div className={styles.aiContainer}>
+            <div className={styles.similarWords}>
+              <strong>{t('Similar words')}:</strong>
+              <p>{listFromAI.join(', ')}</p>
+            </div>
+          </div>
+        )}
+
         <Button
           appearance="primary"
           icon={<Sparkle24Filled />}
@@ -101,13 +122,6 @@ export const Flashcard = ({ word, description }) => {
         >
           {t('Ask AI for 5 similar words')}
         </Button>
-        {isLoading && <Spinner label={`${t('Thinking')}...`} />}
-        {listFromAI.length > 0 && (
-          <div className={styles.similarWords}>
-            <strong>{t('Similar words')}:</strong>
-            <p>{listFromAI.join(', ')}</p>
-          </div>
-        )}
       </div>
     </div>
   );
