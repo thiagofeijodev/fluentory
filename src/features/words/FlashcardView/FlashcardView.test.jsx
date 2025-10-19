@@ -3,12 +3,12 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { FlashcardView } from './FlashcardView';
 
-jest.mock('../../db');
-jest.mock('../../hooks/useQuery');
-jest.mock('../../hooks/useLanguage');
+jest.mock('../../../db');
+jest.mock('../../../hooks/useQuery');
+jest.mock('../../../hooks/useLanguage');
 
-const mockUseQuery = require('../../hooks/useQuery').useQuery;
-const mockUseLanguage = require('../../hooks/useLanguage').useLanguage;
+const mockUseQuery = require('../../../hooks/useQuery').useQuery;
+const mockUseLanguage = require('../../../hooks/useLanguage').useLanguage;
 
 describe('FlashcardView Component', () => {
   const mockWords = [
