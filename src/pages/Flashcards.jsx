@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FlashcardView } from '../features/words/FlashcardView';
+import { FlashcardView } from '../features/words/FlashcardView/FlashcardView';
 
 export const Flashcards = () => {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ export const fetchWordMetadataFromApi = async (word) => {
   const url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${API_KEY}`;
 
   const response = await axios.get(url);
-  const data = response.data;
+  const rawData = response.data;
 
-  return data;
+  return rawData;
 };
