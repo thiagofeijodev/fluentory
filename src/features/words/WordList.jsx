@@ -1,5 +1,6 @@
-import { makeStyles, Spinner } from '@fluentui/react-components';
-import { fetchAllWords } from '../../db';
+import { makeStyles, Spinner, Checkbox } from '@fluentui/react-components';
+import React from 'react';
+import { fetchAllWords, updateWordStatus } from '../../db';
 import { EmptyStateTemplate } from '../../components/EmptyStateTemplate';
 import { CardItemList } from '../../components/CardItemList';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -15,32 +16,99 @@ const useStyles = makeStyles({
     margin: 0,
     padding: 0,
   },
+  filterContainer: {
+    display: 'flex',
+    gap: '16px',
+    marginBottom: '20px',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  filterGroup: {
+    display: 'flex',
+    gap: '12px',
+    alignItems: 'center',
+  },
 });
 
 export const WordList = () => {
   const styles = useStyles();
   const { t } = useLanguage();
+  const [filters, setFilters] = React.useState({
+    showLearning: true,
+    showLearned: true,
+  });
 
-  const { data: accounts, isLoading } = useQuery(fetchAllWords, []);
+  const { data: words, isLoading } = useQuery(fetchAllWords, []);
+
+  const handleStatusChange = (wordId, newStatus) => {
+    updateWordStatus(wordId, newStatus);
+  };
+
+  const filteredWords = React.useMemo(() => {
+    return words.filter((item) => {
+      const status = item.status || 'learning';
+      if (status === 'learning' && filters.showLearning) return true;
+      if (status === 'learned' && filters.showLearned) return true;
+      return false;
+    });
+  }, [words, filters]);
 
   if (isLoading) {
     return <Spinner appearance="primary" label={`${t('Loading')}...`} />;
   }
 
-  if (!accounts.length) {
+  if (!words.length) {
     return <EmptyStateTemplate />;
   }
 
   return (
     <>
       <h1>{t('Words')}:</h1>
-      <ul className={styles.ul}>
-        {accounts.map((item, index) => (
-          <li key={index}>
-            <CardItemList name={item.name} description={item.description} />
-          </li>
-        ))}
-      </ul>
+
+      {/* Filter Section */}
+      <div className={styles.filterContainer}>
+        <span style={{ fontWeight: '500' }}>Filter:</span>
+        <div className={styles.filterGroup}>
+          <Checkbox
+            checked={filters.showLearning}
+            onChange={() =>
+              setFilters((prev) => ({
+                ...prev,
+                showLearning: !prev.showLearning,
+              }))
+            }
+            label="Learning"
+          />
+          <Checkbox
+            checked={filters.showLearned}
+            onChange={() =>
+              setFilters((prev) => ({
+                ...prev,
+                showLearned: !prev.showLearned,
+              }))
+            }
+            label="Learned"
+          />
+        </div>
+      </div>
+
+      {/* Words List */}
+      {filteredWords.length === 0 ? (
+        <EmptyStateTemplate />
+      ) : (
+        <ul className={styles.ul}>
+          {filteredWords.map((item) => (
+            <li key={item.id}>
+              <CardItemList
+                name={item.name}
+                description={item.description}
+                status={item.status || 'learning'}
+                onStatusChange={(newStatus) => handleStatusChange(item.id, newStatus)}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
