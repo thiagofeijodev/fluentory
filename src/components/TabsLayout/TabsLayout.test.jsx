@@ -16,6 +16,6 @@ jest.mock('../../hooks/useLanguage', () => ({
 describe('TabsLayout Component', () => {
   test('renders the TabsLayout with provided tabs', () => {
     renderWithRouter(<TabsLayout />);
-    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getAllByText('Home')[0]).toBeInTheDocument();
   });
 });
