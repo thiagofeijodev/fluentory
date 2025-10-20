@@ -2,9 +2,9 @@ import { useLanguage } from '../../../hooks/useLanguage';
 import { IconClipboardText, IconAppsSettings } from '../../Icons';
 
 export const PAGE_ENUM = {
-  resources: '/',
+  resources: '/app',
   account: '/accounts',
-  setting: '/setting',
+  setting: '/app/setting',
 };
 
 export const usePages = () => {

@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import LandingPage from './features/landing/LandingPage';
 import { TabsLayout } from './components/TabsLayout/TabsLayout';
 import { PrivateTemplate } from './components/PrivateTemplate';
 import { Login } from './pages/Login';
@@ -15,11 +16,16 @@ const router = createBrowserRouter(
   [
     {
       path: '/',
+      element: <LandingPage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: '/app',
       element: <PrivateTemplate />,
       errorElement: <ErrorPage />,
       children: [
         {
-          index: '/',
+          path: '',
           element: <TabsLayout />,
           children: [
             {
