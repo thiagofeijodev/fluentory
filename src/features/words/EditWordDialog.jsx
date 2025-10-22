@@ -10,11 +10,19 @@ import {
 } from '@fluentui/react-components';
 import { useForm, Controller } from 'react-hook-form';
 import { Input } from '../../components/Input';
+import { Select } from '../../components/Select';
 import { updateWord } from '../../db';
 import { useLanguage } from '../../hooks/useLanguage';
 
 export const EditWordDialog = ({ word, open, onOpenChange }) => {
   const { t } = useLanguage();
+
+  // Difficulty options with translation keys
+  const difficultyOptions = [
+    { value: 'easy', label: t('Easy') },
+    { value: 'medium', label: t('Medium') },
+    { value: 'hard', label: t('Hard') },
+  ];
   const {
     control,
     handleSubmit,
@@ -23,7 +31,7 @@ export const EditWordDialog = ({ word, open, onOpenChange }) => {
   } = useForm({
     defaultValues: {
       name: word?.name || '',
-      description: word?.description || '',
+      difficulty: word?.difficulty || 'medium',
     },
   });
 
@@ -31,7 +39,7 @@ export const EditWordDialog = ({ word, open, onOpenChange }) => {
     if (word) {
       reset({
         name: word.name || '',
-        description: word.description || '',
+        difficulty: word.difficulty || 'medium',
       });
     }
   }, [word, reset]);
@@ -71,15 +79,16 @@ export const EditWordDialog = ({ word, open, onOpenChange }) => {
               <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <Input
-                    label={t('Description')}
-                    placeholder={t('Description')}
+                  <Select
+                    label={t('Difficulty')}
+                    placeholder={t('Select difficulty')}
+                    options={difficultyOptions}
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
                   />
                 )}
-                name="description"
+                name="difficulty"
               />
             </form>
           </DialogContent>

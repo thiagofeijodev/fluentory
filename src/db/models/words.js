@@ -23,6 +23,7 @@ export async function insertWord(uid, data) {
   const db = getFirestore(app);
   data.user = uid;
   data.status = data.status || 'learning';
+  data.difficulty = data.difficulty || 'medium';
 
   try {
     const docRef = await addDoc(collection(db, 'words'), data);

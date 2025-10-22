@@ -21,5 +21,9 @@
   "Email is required": "Email é obrigatório",
   "Password": "Senha",
   "Enter your password": "Digite sua senha",
-  "Password is required": "Senha é obrigatória"
+  "Password is required": "Senha é obrigatória",
+  "Difficulty": "Dificuldade",
+  "Easy": "Fácil",
+  "Hard": "Difícil",
+  "Select difficulty": "Selecione a dificuldade"
 }

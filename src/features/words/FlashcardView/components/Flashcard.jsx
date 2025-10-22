@@ -7,7 +7,6 @@ import { Sparkle24Filled } from '@fluentui/react-icons';
 const useStyles = makeStyles({
   card: {
     width: '100%',
-    maxWidth: '800px',
     minHeight: '300px',
     borderRadius: '12px',
     border: '2px solid #0078d4',

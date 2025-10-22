@@ -30,11 +30,17 @@ export const Select = React.forwardRef(
           placeholder={placeholder || t('Select an option...')}
           onOptionSelect={(_, data) => onChange(data.optionValue)}
         >
-          {options.map((option) => (
-            <Option key={option} value={option}>
-              {option}
-            </Option>
-          ))}
+          {options.map((option) => {
+            // Handle both string options and object options with value/label
+            const optionValue = typeof option === 'string' ? option : option.value;
+            const optionLabel = typeof option === 'string' ? option : option.label;
+
+            return (
+              <Option key={optionValue} value={optionValue}>
+                {optionLabel}
+              </Option>
+            );
+          })}
         </Dropdown>
       </div>
     );
