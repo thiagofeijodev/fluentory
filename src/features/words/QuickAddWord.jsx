@@ -30,6 +30,7 @@ export const QuickAddWord = () => {
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onKeyPress={handleKeyPress}
+      data-testid="add-word"
     />
   );
 };

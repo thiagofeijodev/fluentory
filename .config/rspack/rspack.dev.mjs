@@ -5,6 +5,8 @@ import { RspackDevServer } from '@rspack/dev-server';
 import rspack from '@rspack/core';
 import common from './rspack.common.mjs';
 
+const port = process.env.PORT || 3001;
+
 const rspackConfig = {
   ...common,
   mode: 'development',
@@ -24,7 +26,7 @@ const rspackConfig = {
     }),
   ],
   devServer: {
-    port: 3001,
+    port: port,
     static: path.join(process.cwd(), 'static'),
     historyApiFallback: true,
     host: '0.0.0.0',
@@ -41,7 +43,7 @@ async function run() {
   const server = new RspackDevServer(serverOptions, compiler);
 
   server.startCallback(() => {
-    const port = serverOptions.port || 3001;
+    const port = serverOptions.port || port;
     console.log(`Successfully started server on http://localhost:${port}`);
   });
 }

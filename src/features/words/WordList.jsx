@@ -116,7 +116,7 @@ export const WordList = () => {
       {filteredWords.length === 0 ? (
         <EmptyStateTemplate />
       ) : (
-        <ul className={styles.ul}>
+        <ul className={styles.ul} data-testid="words-list">
           {filteredWords.map((item) => (
             <li key={item.id}>
               <CardItemList

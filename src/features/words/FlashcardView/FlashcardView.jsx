@@ -45,8 +45,13 @@ export const FlashcardView = ({ onBack }) => {
   if (!words || words.length === 0) {
     return (
       <div className={styles.container}>
-        <p>{t('No words available')}</p>
-        <EmptyStateTemplate />
+        <header>
+          <h1>Flashcards Study Mode</h1>
+        </header>
+        <div data-testid="empty-state">
+          <p>{t('No words available')}</p>
+          <EmptyStateTemplate />
+        </div>
         <Button appearance="primary" onClick={onBack}>
           {t('Back')}
         </Button>
@@ -56,6 +61,9 @@ export const FlashcardView = ({ onBack }) => {
 
   return (
     <div className={styles.container}>
+      <header>
+        <h1>Flashcards Study Mode</h1>
+      </header>
       <div className={styles.cardContainer}>
         <Flashcard word={currentWord} description={description} />
       </div>

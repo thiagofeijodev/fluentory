@@ -44,7 +44,7 @@ export const Create = () => {
 
   const onGoToLogin = () => navigate('/login');
 
-  const onSuccess = () => navigate('/');
+  const onSuccess = () => navigate('/app');
 
   const onError = (error) => {
     const errorCode = error.code;

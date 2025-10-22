@@ -1,0 +1,175 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  e2e-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # Test on different device categories
+        device-group: [desktop, mobile, tablet]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run E2E tests - Desktop
+        if: matrix.device-group == 'desktop'
+        run: npm run test:e2e:desktop
+
+      - name: Run E2E tests - Mobile
+        if: matrix.device-group == 'mobile'
+        run: npm run test:e2e:mobile
+
+      - name: Run E2E tests - Tablet
+        if: matrix.device-group == 'tablet'
+        run: npm run test:e2e:tablet
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-results-${{ matrix.device-group }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-screenshots-${{ matrix.device-group }}
+          path: test-results/screenshots/
+          retention-days: 7
+
+  e2e-accessibility:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Accessibility tests
+        run: npx playwright test accessibility.spec.js
+
+      - name: Upload accessibility results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-results
+          path: test-results/
+          retention-days: 30
+
+  e2e-performance:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Performance tests
+        run: npx playwright test --project='Desktop Chrome (Large)' --grep="performance"
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-results
+          path: test-results/
+          retention-days: 30
+
+  test-summary:
+    needs: [e2e-tests, e2e-accessibility, e2e-performance]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Generate test summary
+        run: |
+          echo "# E2E Test Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check if any tests failed
+          if [ -f "e2e-results-desktop/e2e-results.json" ]; then
+            echo "## Desktop Tests" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Desktop tests completed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "e2e-results-mobile/e2e-results.json" ]; then
+            echo "## Mobile Tests" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Mobile tests completed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "e2e-results-tablet/e2e-results.json" ]; then
+            echo "## Tablet Tests" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Tablet tests completed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "accessibility-results/e2e-results.json" ]; then
+            echo "## Accessibility Tests" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Accessibility tests completed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Check the artifacts for detailed results and screenshots." >> $GITHUB_STEP_SUMMARY

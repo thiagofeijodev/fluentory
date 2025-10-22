@@ -58,7 +58,7 @@ export const ErrorPage = () => {
             error.message ||
             t("We're sorry, but an unexpected error has occurred.")}
         </Text>
-        <Button appearance="primary" onClick={() => navigate('/')}>
+        <Button appearance="primary" onClick={() => navigate('/app')}>
           {t('Go back to Home')}
         </Button>
       </div>

@@ -8,7 +8,7 @@ export const WordRelationshipButton = () => {
   const { t } = useLanguage();
 
   const handleWordRelationships = () => {
-    navigate('/words');
+    navigate('/app/words');
   };
 
   return (

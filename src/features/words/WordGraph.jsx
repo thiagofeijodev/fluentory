@@ -108,7 +108,7 @@ export const WordGraph = ({ data, showSynonyms }) => {
   }, [data, showSynonyms]);
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} data-testid="word-graph">
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
     </div>
   );

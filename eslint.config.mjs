@@ -18,6 +18,7 @@ const config = [
       '.config/rspack/*.{js,ts,mjs}',
       'commitlint.config.js',
       'jest.config.mjs',
+      'playwright.config.js',
     ],
     languageOptions: {
       globals: {
@@ -80,6 +81,7 @@ const config = [
       'src/**/*.{test,spec}.{js,jsx}',
       'src/**/__tests__/**/*.{js,jsx}',
       '.config/tests/*.{js,ts,mjs}',
+      'tests/**/*.{js,jsx}',
     ],
     languageOptions: {
       ecmaVersion: 'latest',

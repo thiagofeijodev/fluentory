@@ -6,5 +6,20 @@
   "Close": "Fechar",
   "Name": "Nome",
   "Save": "Salvar",
-  "New": "Novo"
+  "New": "Novo",
+  "Password must be at least 8 characters": "A senha deve ter pelo menos 8 caracteres",
+  "Password must include uppercase, lowercase, number and special character": "A senha deve incluir maiúscula, minúscula, número e caractere especial",
+  "Password strength: ": "Força da senha: ",
+  "Strong": "Forte",
+  "Medium": "Média",
+  "Weak": "Fraca",
+  "Invalid email address": "Endereço de email inválido",
+  "Welcome back": "Bem-vindo de volta",
+  "Sign in to continue": "Faça login para continuar",
+  "Email": "Email",
+  "Enter your email": "Digite seu email",
+  "Email is required": "Email é obrigatório",
+  "Password": "Senha",
+  "Enter your password": "Digite sua senha",
+  "Password is required": "Senha é obrigatória"
 }

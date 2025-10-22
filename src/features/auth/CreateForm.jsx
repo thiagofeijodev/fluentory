@@ -69,6 +69,7 @@ export const CreateForm = ({ onSubmit, form, children }) => {
               onChange={onChange}
               value={value}
               required
+              name="email"
             />
           )}
           name="email"
@@ -105,6 +106,7 @@ export const CreateForm = ({ onSubmit, form, children }) => {
               onChange={onChange}
               value={value}
               required
+              name="password"
             />
           )}
           name="password"
@@ -133,6 +135,7 @@ export const CreateForm = ({ onSubmit, form, children }) => {
               onBlur={onBlur}
               onChange={onChange}
               value={value}
+              name="cfrPassword"
               required
             />
           )}

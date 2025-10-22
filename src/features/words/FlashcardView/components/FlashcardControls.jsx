@@ -45,11 +45,12 @@ export const FlashcardControls = ({
         icon={<ChevronLeft20Regular />}
         onClick={onPrev}
         disabled={!shuffled && currentIndex === 0}
+        data-testid="previous-card"
       >
         {t('Previous')}
       </Button>
 
-      <div className={styles.counter}>
+      <div className={styles.counter} data-testid="progress">
         {currentIndex + 1} / {wordCount}
       </div>
 
@@ -59,6 +60,7 @@ export const FlashcardControls = ({
         icon={<ChevronRight20Regular />}
         onClick={onNext}
         disabled={!shuffled && currentIndex === wordCount - 1}
+        data-testid="next-card"
       >
         {t('Next')}
       </Button>

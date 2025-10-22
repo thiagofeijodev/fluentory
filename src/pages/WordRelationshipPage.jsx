@@ -37,7 +37,7 @@ export const WordRelationshipPage = () => {
   const { data: words, isLoading: isLoadingWords } = useQuery(fetchAllWords, []);
   const { data: wordRelationships, isLoading: isLoadingSynonyms } = useSynonyms(words);
 
-  const handleBack = () => navigate('/');
+  const handleBack = () => navigate('/app');
 
   if (isLoadingWords || isLoadingSynonyms) {
     return <Loading />;

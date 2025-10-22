@@ -91,7 +91,7 @@ export const Flashcard = ({ word, description }) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-testid="flashcard">
       <div className={styles.cardContent}>
         <div className={styles.label}>{t('Word')}</div>
         <p className={styles.word}>{word?.name}</p>

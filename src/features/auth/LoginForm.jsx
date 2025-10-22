@@ -22,6 +22,11 @@ const useStyles = makeStyles({
     color: tokens.colorPaletteRedForeground1,
     marginTop: tokens.spacingVerticalXXS,
   },
+  hint: {
+    color: tokens.colorNeutralForeground3,
+    fontSize: tokens.fontSizeBase200,
+    marginTop: tokens.spacingVerticalXXS,
+  },
   actions: {
     marginTop: tokens.spacingVerticalL,
   },
@@ -48,18 +53,16 @@ export const LoginForm = ({ onSubmit, form, children }) => {
           control={control}
           rules={{
             required: true,
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: t('Invalid email address'),
-            },
           }}
-          render={({ field: { onChange, onBlur } }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <Input
               label={t('Email')}
               placeholder={t('Enter your email')}
               onBlur={onBlur}
               onChange={onChange}
+              value={value}
               required
+              name="email"
             />
           )}
           name="email"
@@ -76,28 +79,21 @@ export const LoginForm = ({ onSubmit, form, children }) => {
           control={control}
           rules={{
             required: true,
-            minLength: {
-              value: 6,
-              message: t('Password must be at least 6 characters'),
-            },
           }}
-          render={({ field: { onChange, onBlur } }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <Input
               type="password"
               label={t('Password')}
               placeholder={t('Enter your password')}
               onBlur={onBlur}
               onChange={onChange}
+              value={value}
               required
+              name="password"
             />
           )}
           name="password"
         />
-        {errors.password && (
-          <Caption1 className={styles.error}>
-            {errors.password.message || t('Password is required')}
-          </Caption1>
-        )}
       </div>
 
       <div className={styles.actions}>{children}</div>

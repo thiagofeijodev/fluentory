@@ -5,7 +5,7 @@ export const Flashcards = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate('/');
+    navigate('/app');
   };
 
   return <FlashcardView onBack={handleBack} />;

@@ -66,7 +66,7 @@ export const Login = () => {
 
   const onGoToCreate = () => navigate('/create');
 
-  const onSuccess = () => navigate('/');
+  const onSuccess = () => navigate('/app');
 
   const onError = (error) => {
     const errorCode = error.code;

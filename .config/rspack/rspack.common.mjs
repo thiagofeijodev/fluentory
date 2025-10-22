@@ -13,13 +13,13 @@ export default {
   },
   plugins: [
     new rspack.EnvironmentPlugin([
-      'API_KEY',
-      'AUTH_DOMAIN',
-      'PROJECT_ID',
-      'STORAGE_BUCKET',
-      'MESSAGING_SENDER_ID',
-      'APPID',
-      'MEASUREMENT_ID',
+      'REACT_APP_API_KEY',
+      'REACT_APP_AUTH_DOMAIN',
+      'REACT_APP_PROJECT_ID',
+      'REACT_APP_STORAGE_BUCKET',
+      'REACT_APP_MESSAGING_SENDER_ID',
+      'REACT_APP_APPID',
+      'REACT_APP_MEASUREMENT_ID',
       'REACT_APP_MERRIAM_WEBSTER_API_KEY',
     ]),
     new rspack.CopyRspackPlugin({

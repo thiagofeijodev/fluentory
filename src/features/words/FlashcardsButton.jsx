@@ -8,7 +8,7 @@ export const FlashcardsButton = () => {
   const { t } = useLanguage();
 
   const handleFlashcards = () => {
-    navigate('/flashcards');
+    navigate('/app/flashcards');
   };
 
   return (
