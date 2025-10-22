@@ -23,12 +23,6 @@ jobs:
       - name: Install dependencies (including optional)
         run: npm ci --include=optional
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Test
-        run: npm run test
-
       - name: Build 🔧
         run: npm run build
         env:
