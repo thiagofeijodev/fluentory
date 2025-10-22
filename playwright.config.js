@@ -6,7 +6,7 @@ if (fs.existsSync('.env.development.local')) {
 }
 
 const reporter = !process.env.CI
-  ? []
+  ? [['html']]
   : [
       ['html'],
       ['json', { outputFile: 'test-results/e2e-results.json' }],
@@ -103,12 +103,10 @@ module.exports = defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  /*
   webServer: {
     command: 'npm run start',
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
-  */
 });

@@ -179,9 +179,6 @@ tests/e2e/
 ├── accessibility.spec.js     # Accessibility compliance tests
 └── README.md                 # Detailed documentation
 
-scripts/
-└── run-e2e-tests.sh          # Test runner script
-
 .github/workflows/
 └── e2e-tests.yml             # CI/CD pipeline
 
