@@ -85,10 +85,10 @@ const useStyles = makeStyles({
     padding: tokens.spacingHorizontalXXL,
   },
   '@media (max-width: 768px)': {
-    demoGrid: {
+    '& .demoGrid': {
       gridTemplateColumns: '1fr',
     },
-    stepsGrid: {
+    '& .stepsGrid': {
       gridTemplateColumns: '1fr',
     },
   },

@@ -68,10 +68,10 @@ const useStyles = makeStyles({
     border: `2px dashed ${tokens.colorNeutralStroke2}`,
   },
   '@media (max-width: 768px)': {
-    container: {
+    '& .container': {
       gridTemplateColumns: '1fr',
     },
-    headline: {
+    '& .headline': {
       fontSize: '40px',
     },
   },

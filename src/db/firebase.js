@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase/app';
+import { getPerformance } from 'firebase/performance';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getRemoteConfig } from 'firebase/remote-config';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,6 +14,19 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+export const perf = getPerformance(app);
+
+// Initialize Remote Config
+export const remoteConfig = getRemoteConfig(app);
+
+// Set default values and cache settings
+remoteConfig.defaultConfig = {
+  max_words_limit: 100,
+};
+
+// Set cache expiration to 1 hour (3600 seconds)
+remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
 
 export const getLogin = (onSuccess) => {
   const auth = getAuth();

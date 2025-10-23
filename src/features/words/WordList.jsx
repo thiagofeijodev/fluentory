@@ -4,6 +4,7 @@ import { fetchAllWords, updateWordStatus, deleteWord } from '../../db';
 import { EmptyStateTemplate } from '../../components/EmptyStateTemplate';
 import { CardItemList } from '../../components/CardItemList';
 import { EditWordDialog } from './EditWordDialog';
+import { WordLimitDisplay } from '../../components/WordLimitDisplay';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useQuery } from '../../hooks/useQuery';
 
@@ -80,6 +81,7 @@ export const WordList = () => {
 
   return (
     <>
+      <WordLimitDisplay currentCount={words.length} />
       {/* Filter Section */}
       <div className={styles.filterContainer}>
         <span style={{ fontWeight: '500' }}>Filter:</span>

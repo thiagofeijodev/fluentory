@@ -103,7 +103,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   '@media (max-width: 768px)': {
-    container: {
+    '& .container': {
       gridTemplateColumns: '1fr',
     },
   },

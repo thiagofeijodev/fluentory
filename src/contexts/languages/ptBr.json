@@ -25,5 +25,8 @@
   "Difficulty": "Dificuldade",
   "Easy": "Fácil",
   "Hard": "Difícil",
-  "Select difficulty": "Selecione a dificuldade"
+  "Select difficulty": "Selecione a dificuldade",
+  "Words limit": "Limite de palavras",
+  "Word limit exceeded. Maximum allowed:": "Limite de palavras excedido. Máximo permitido:",
+  "Add a new word...": "Adicionar uma nova palavra..."
 }

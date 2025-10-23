@@ -30,7 +30,7 @@ const rspackConfig = {
     static: path.join(process.cwd(), 'static'),
     historyApiFallback: true,
     host: '0.0.0.0',
-    open: true,
+    open: !process.env.CI || process.env.OPEN === 'true',
     hot: true,
   },
 };

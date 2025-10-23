@@ -1,1 +1,10 @@
-{}
+{
+  "parameters": {
+    "max_words_limit": {
+      "defaultValue": {
+        "value": "100"
+      },
+      "description": "Maximum number of words a user can add to their vocabulary"
+    }
+  }
+}
