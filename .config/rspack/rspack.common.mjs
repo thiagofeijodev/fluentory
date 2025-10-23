@@ -33,6 +33,9 @@ export default {
         {
           from: path.resolve(process.cwd(), 'public/robots.txt'),
         },
+        {
+          from: path.resolve(process.cwd(), 'public/CNAME'),
+        },
       ],
     }),
   ],
