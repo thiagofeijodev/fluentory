@@ -25,6 +25,22 @@ jest.mock('firebase/auth', () => ({
   }),
 }));
 
+jest.mock('firebase/performance', () => ({
+  getPerformance: jest.fn(),
+}));
+
+jest.mock('firebase/remote-config', () => ({
+  getRemoteConfig: jest.fn(() => ({
+    defaultConfig: {},
+    settings: {
+      minimumFetchIntervalMillis: 3600000,
+    },
+    fetch: jest.fn(),
+    activate: jest.fn(),
+    getValue: jest.fn(() => ({ asString: () => '100' })),
+  })),
+}));
+
 // Mock i18next
 jest.mock('i18next', () => ({
   use: jest.fn().mockReturnThis(),

@@ -162,6 +162,8 @@ const config = [
       sourceType: 'module',
       globals: {
         ...globals.node,
+        ...globals.browser,
+        ...globals.jest,
         process: 'readonly',
       },
     },
