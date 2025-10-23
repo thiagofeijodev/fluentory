@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getPerformance } from 'firebase/performance';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { getRemoteConfig } from 'firebase/remote-config';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,6 +15,25 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+// Initialize App Check
+if (typeof window !== 'undefined') {
+  if (process.env.NODE_ENV === 'development') {
+    // Use debug provider for development
+    // You'll need to set this debug token in Firebase Console
+    window.FIREBASE_APPCHECK_DEBUG_TOKEN = 'debug-token';
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(process.env.REACT_APP_RECAPTCHA_SITE_KEY || ''),
+      isTokenAutoRefreshEnabled: true,
+    });
+  } else {
+    // Use reCAPTCHA for production
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(process.env.REACT_APP_RECAPTCHA_SITE_KEY),
+      isTokenAutoRefreshEnabled: true,
+    });
+  }
+}
 
 export const perf = getPerformance(app);
 
