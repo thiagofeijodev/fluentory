@@ -1,7 +1,7 @@
 {
   "name": "fluentory",
   "description": "An AI-powered web app for English learners to practice vocabulary.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "./",
   "engines": {
