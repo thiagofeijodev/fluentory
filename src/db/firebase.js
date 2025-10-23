@@ -18,10 +18,10 @@ export const app = initializeApp(firebaseConfig);
 
 // Initialize App Check
 if (typeof window !== 'undefined') {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'production') {
     // Use debug provider for development
     // You'll need to set this debug token in Firebase Console
-    window.FIREBASE_APPCHECK_DEBUG_TOKEN = 'debug-token';
+    window.FIREBASE_APPCHECK_DEBUG_TOKEN = process.env.REACT_APP_DEBUG_TOKEN || 'debug-token';
     initializeAppCheck(app, {
       provider: new ReCaptchaV3Provider(process.env.REACT_APP_RECAPTCHA_SITE_KEY || ''),
       isTokenAutoRefreshEnabled: true,

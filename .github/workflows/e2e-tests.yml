@@ -42,6 +42,8 @@ jobs:
           REACT_APP_APPID: ${{ secrets.APPID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
           REACT_APP_MERRIAM_WEBSTER_API_KEY: ${{ secrets.REACT_APP_MERRIAM_WEBSTER_API_KEY }}
+          REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+          REACT_APP_DEBUG_TOKEN: ${{ secrets.REACT_APP_DEBUG_TOKEN }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           NODE_ENV: production

@@ -21,6 +21,7 @@ export default {
       'REACT_APP_APPID',
       'REACT_APP_MEASUREMENT_ID',
       'REACT_APP_MERRIAM_WEBSTER_API_KEY',
+      'REACT_APP_DEBUG_TOKEN',
       'REACT_APP_RECAPTCHA_SITE_KEY',
     ]),
     new rspack.CopyRspackPlugin({
