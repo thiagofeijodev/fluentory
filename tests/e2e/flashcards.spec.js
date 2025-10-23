@@ -26,98 +26,77 @@ test.describe('Flashcards Study Mode', () => {
 
     await checkResponsiveDesign(page, context);
 
-    // Check if either flashcard container or empty state is visible
-    const flashcardContainer = page.locator(
-      '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
-    );
-    const emptyState = page.locator(
-      'text=No words available, text=No words, [data-testid="empty-state"]',
-    );
-    const backButton = page.locator('button:has-text("Back")');
-    const loadingSpinner = page.locator('[role="progressbar"], .spinner, [class*="spinner"]');
     const pageContent = page.locator('body');
+    const backButton = page.locator('button:has-text("Back")');
 
-    const hasFlashcards = await flashcardContainer.isVisible();
-    const hasEmptyState = await emptyState.isVisible();
-    const hasLoading = await loadingSpinner.isVisible();
-    const hasPageContent = await pageContent.isVisible();
-
-    // The page should show either flashcards, empty state, loading, or at least have content
-    expect(hasFlashcards || hasEmptyState || hasLoading || hasPageContent).toBe(true);
+    // Page content should always be visible
+    await expect(pageContent).toBeVisible();
 
     // Wait for loading to finish if present
-    if (hasLoading) {
-      await page.waitForTimeout(2000); // Wait for loading to complete
-    }
+    await page
+      .waitForFunction(
+        () => !document.querySelector('[role="progressbar"], .spinner, [class*="spinner"]'),
+        { timeout: 5000 },
+      )
+      .catch(() => {});
 
-    // After loading, there should be either flashcards or empty state
-    const finalHasFlashcards = await flashcardContainer.isVisible();
-    const finalHasEmptyState = await emptyState.isVisible();
-    const finalHasPageContent = await pageContent.isVisible();
-    expect(finalHasFlashcards || finalHasEmptyState || finalHasPageContent).toBe(true);
-
-    // Check if back button is visible (it might not be visible in empty state)
-    const hasBackButton = await backButton.isVisible();
-    if (hasBackButton) {
-      await expect(backButton).toBeVisible();
-    }
+    // After loading finishes, back button should be visible
+    await expect(backButton).toBeVisible();
 
     await takeScreenshot(page, 'flashcards-page', context);
   });
 
-  test('should navigate between flashcards', async ({ page, context }) => {
+  test('should navigate between flashcards when cards available', async ({ page, context }) => {
     await page.goto('/app/flashcards');
     await waitForPageLoad(page);
 
-    // Check if flashcards are available
     const flashcardContainer = page.locator(
       '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
     );
+
+    // Expect flashcards to be visible
+    await expect(flashcardContainer).toBeVisible();
+
+    // Get initial card content
+    const initialCard = page.locator('[data-testid="flashcard"], .flashcard, [class*="flashcard"]');
+    const initialContent = await initialCard.textContent();
+
+    // Click next button
+    const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
+    await expect(nextButton).toBeEnabled();
+    await nextButton.click();
+
+    // Should show different card
+    const nextCard = page.locator('[data-testid="flashcard"], .flashcard, [class*="flashcard"]');
+    await expect(nextCard).not.toHaveText(initialContent);
+
+    // Click previous button
+    const previousButton = page.locator(
+      'button:has-text("Previous"), [data-testid="previous-card"]',
+    );
+    await previousButton.click();
+
+    // Should go back to initial card
+    const previousCard = page.locator(
+      '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
+    );
+    await expect(previousCard).toHaveText(initialContent);
+
+    await takeScreenshot(page, 'flashcard-navigation', context);
+  });
+
+  test('should display empty state when no flashcards available', async ({ page, context }) => {
+    await page.goto('/app/flashcards');
+    await waitForPageLoad(page);
+
     const emptyState = page.locator(
       'text=No words available, text=No words, [data-testid="empty-state"]',
     );
 
-    const hasFlashcards = await flashcardContainer.isVisible();
-    const hasEmptyState = await emptyState.isVisible();
+    // Expect empty state to be visible
+    await expect(emptyState).toBeVisible();
 
-    if (hasFlashcards) {
-      // Get initial card content
-      const initialCard = page.locator(
-        '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
-      );
-      const initialContent = await initialCard.textContent();
-
-      // Click next button
-      const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
-      if (await nextButton.isEnabled()) {
-        await nextButton.click();
-
-        // Should show different card
-        const nextCard = page.locator(
-          '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
-        );
-        const nextContent = await nextCard.textContent();
-        expect(nextContent).not.toBe(initialContent);
-
-        // Click previous button
-        const previousButton = page.locator(
-          'button:has-text("Previous"), [data-testid="previous-card"]',
-        );
-        await previousButton.click();
-
-        // Should go back to initial card
-        const previousCard = page.locator(
-          '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
-        );
-        const previousContent = await previousCard.textContent();
-        expect(previousContent).toBe(initialContent);
-      }
-    } else if (hasEmptyState) {
-      // If no flashcards, just verify empty state is shown
-      await expect(emptyState).toBeVisible();
-    }
-
-    await takeScreenshot(page, 'flashcard-navigation', context);
+    await takeScreenshot(page, 'flashcard-empty-state', context);
   });
 
   test('should handle keyboard navigation in flashcards', async ({ page, context }) => {
@@ -130,135 +109,137 @@ test.describe('Flashcards Study Mode', () => {
     await page.keyboard.press(' '); // Flip card (spacebar)
     await page.keyboard.press('Enter'); // Flip card (enter)
 
+    // Verify page is still functional after keyboard navigation
+    const body = page.locator('body');
+    await expect(body).toBeVisible();
+
     await takeScreenshot(page, 'flashcard-keyboard', context);
   });
 
   test('should handle touch interactions on mobile', async ({ page, context }) => {
+    const deviceInfo = await checkResponsiveDesign(page, context);
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(!deviceInfo.isMobile, 'Only runs on mobile devices');
+
     await page.goto('/app/flashcards');
     await waitForPageLoad(page);
 
-    const deviceInfo = await checkResponsiveDesign(page, context);
+    const body = page.locator('body');
+    await expect(body).toBeVisible();
 
-    if (deviceInfo.isMobile) {
-      // Test swipe gestures
-      const flashcardContainer = page.locator(
-        '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
-      );
+    // Test swipe gestures
+    const flashcardContainer = page.locator(
+      '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
+    );
 
-      // Swipe left for next card
-      await flashcardContainer.hover();
-      await page.mouse.down();
-      await page.mouse.move(-100, 0);
-      await page.mouse.up();
+    // Swipe left for next card
+    await flashcardContainer.hover();
+    await page.mouse.down();
+    await page.mouse.move(-100, 0);
+    await page.mouse.up();
 
-      // Swipe right for previous card
-      await flashcardContainer.hover();
-      await page.mouse.down();
-      await page.mouse.move(100, 0);
-      await page.mouse.up();
+    // Swipe right for previous card
+    await flashcardContainer.hover();
+    await page.mouse.down();
+    await page.mouse.move(100, 0);
+    await page.mouse.up();
 
-      // Tap to flip
-      await flashcardContainer.tap();
-    }
+    // Tap to flip
+    await flashcardContainer.tap();
 
     await takeScreenshot(page, 'flashcard-touch', context);
   });
 
-  test('should show progress indicator', async ({ page, context }) => {
+  test('should show progress indicator on flashcards', async ({ page, context }) => {
     await page.goto('/app/flashcards');
     await waitForPageLoad(page);
 
-    // Check if flashcards are available
     const flashcardContainer = page.locator(
       '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
     );
-    const emptyState = page.locator(
-      'text=No words available, text=No words, [data-testid="empty-state"]',
+
+    // Expect flashcards to be visible
+    await expect(flashcardContainer).toBeVisible();
+
+    // Check if progress indicator is visible (counter like "1 / 5")
+    const progressIndicator = page.locator(
+      '[data-testid="progress"], .progress, [class*="progress"], text=/\\d+ \\/ \\d+/',
     );
+    await expect(progressIndicator).toBeVisible();
 
-    const hasFlashcards = await flashcardContainer.isVisible();
-    const hasEmptyState = await emptyState.isVisible();
+    // Navigate through cards and check if progress updates
+    const initialProgress = await progressIndicator.textContent();
 
-    if (hasFlashcards) {
-      // Check if progress indicator is visible (counter like "1 / 5")
-      const progressIndicator = page.locator(
-        '[data-testid="progress"], .progress, [class*="progress"], text=/\\d+ \\/ \\d+/',
-      );
-      await expect(progressIndicator).toBeVisible();
+    const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
+    await expect(nextButton).toBeEnabled();
+    await nextButton.click();
 
-      // Navigate through cards and check if progress updates
-      const initialProgress = await progressIndicator.textContent();
-
-      const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
-      if (await nextButton.isEnabled()) {
-        await nextButton.click();
-
-        const updatedProgress = await progressIndicator.textContent();
-        expect(updatedProgress).not.toBe(initialProgress);
-      }
-    } else if (hasEmptyState) {
-      // If no flashcards, just verify empty state is shown
-      await expect(emptyState).toBeVisible();
-    }
+    const updatedProgress = progressIndicator;
+    await expect(updatedProgress).not.toHaveText(initialProgress);
 
     await takeScreenshot(page, 'flashcard-progress', context);
   });
 
-  test('should handle empty flashcard set gracefully', async ({ page, context }) => {
+  test('should display empty state when flashcard set is empty', async ({ page, context }) => {
     await page.goto('/app/flashcards');
     await waitForPageLoad(page);
 
-    // Should show empty state or message to add words
-    const emptyState = page.locator('[data-testid="empty-state"], .empty-state, [class*="empty"]');
-    const addWordsMessage = page.locator('text=Add words, text=No words, text=Start learning');
-    const noWordsMessage = page.locator('text=No words available');
     const pageContent = page.locator('body');
+    await expect(pageContent).toBeVisible();
 
-    // Check if either empty state or add words message is visible
+    // At least one of these messages should be present in the page
+    const emptyState = page.locator('[data-testid="empty-state"], .empty-state, [class*="empty"]');
+    const addWordsMessage = page.locator('text=Add words');
+    const noWordsMessage = page.locator('text=No words available');
+
     const hasEmptyState = await emptyState.isVisible();
     const hasAddWordsMessage = await addWordsMessage.isVisible();
     const hasNoWordsMessage = await noWordsMessage.isVisible();
-    const hasPageContent = await pageContent.isVisible();
 
-    expect(hasEmptyState || hasAddWordsMessage || hasNoWordsMessage || hasPageContent).toBe(true);
+    expect(hasEmptyState || hasAddWordsMessage || hasNoWordsMessage).toBe(true);
 
     await takeScreenshot(page, 'flashcard-empty', context);
   });
 
-  test('should handle responsive design on different screen sizes', async ({ page, context }) => {
+  test('should adapt flashcard layout to different screen sizes', async ({ page, context }) => {
     await page.goto('/app/flashcards');
     await waitForPageLoad(page);
 
-    const deviceInfo = await checkResponsiveDesign(page, context);
+    await checkResponsiveDesign(page, context);
 
-    // Check if flashcards are available
     const flashcardContainer = page.locator(
       '[data-testid="flashcard"], .flashcard, [class*="flashcard"]',
     );
-    const emptyState = page.locator(
-      'text=No words available, text=No words, [data-testid="empty-state"]',
-    );
 
-    const hasFlashcards = await flashcardContainer.isVisible();
-    const hasEmptyState = await emptyState.isVisible();
+    // Expect flashcards to be visible
+    await expect(flashcardContainer).toBeVisible();
 
-    if (hasFlashcards) {
-      // Check if flashcard layout adapts to screen size
-      await expect(flashcardContainer).toBeVisible();
+    // Check if flashcard layout adapts to screen size
+    const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
+    const buttonSize = await nextButton.boundingBox();
 
-      if (deviceInfo.isMobile) {
-        // On mobile, check if controls are touch-friendly
-        const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
-        const buttonSize = await nextButton.boundingBox();
-        if (buttonSize) {
-          expect(buttonSize.height).toBeGreaterThan(40); // Touch-friendly size
-        }
-      }
-    } else if (hasEmptyState) {
-      // If no flashcards, just verify empty state is shown
-      await expect(emptyState).toBeVisible();
-    }
+    // Verify button has dimensions
+    expect(buttonSize).toBeTruthy();
+    expect(buttonSize?.height).toBeGreaterThanOrEqual(40);
 
     await takeScreenshot(page, 'flashcard-responsive', context);
+  });
+
+  test('should display touch-friendly controls on mobile', async ({ page, context }) => {
+    const deviceInfo = await checkResponsiveDesign(page, context);
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(!deviceInfo.isMobile, 'Only runs on mobile devices');
+
+    await page.goto('/app/flashcards');
+    await waitForPageLoad(page);
+
+    const nextButton = page.locator('button:has-text("Next"), [data-testid="next-card"]');
+    const buttonSize = await nextButton.boundingBox();
+
+    // On mobile, controls should be touch-friendly
+    expect(buttonSize).toBeTruthy();
+    expect(buttonSize?.height).toBeGreaterThanOrEqual(40);
+
+    await takeScreenshot(page, 'flashcard-mobile-controls', context);
   });
 });

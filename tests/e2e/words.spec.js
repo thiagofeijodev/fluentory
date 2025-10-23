@@ -36,75 +36,60 @@ test.describe('Words Management', () => {
     await takeScreenshot(page, 'words-list', context);
   });
 
-  test('should handle word relationships interactions', async ({ page, context }) => {
+  test('should display word graph and handle interactions', async ({ page, context }) => {
     await page.goto('/app/words');
     await waitForPageLoad(page);
 
     // Test graph interactions
     const wordGraph = page.locator('[data-testid="word-graph"], .word-graph, canvas');
-    if (await wordGraph.isVisible()) {
-      // Click on a word node
-      await wordGraph.click({ position: { x: 100, y: 100 } });
+    await expect(wordGraph).toBeVisible();
 
-      // Check if word details are shown
-      const wordDetails = page.locator('[data-testid="word-details"], .word-details');
-      if (await wordDetails.isVisible()) {
-        await expect(wordDetails).toBeVisible();
-      }
-    }
+    // Click on a word node
+    await wordGraph.click({ position: { x: 100, y: 100 } });
+
+    // Verify graph remains visible after interaction
+    await expect(wordGraph).toBeVisible();
 
     await takeScreenshot(page, 'word-graph-interaction', context);
   });
 
-  test('should test responsive design on different screen sizes', async ({ page, context }) => {
+  test('should maintain responsive design on different screen sizes', async ({ page, context }) => {
     await page.goto('/app');
     await waitForPageLoad(page);
 
+    // Check responsive design across viewports
     const deviceInfo = await checkResponsiveDesign(page, context);
 
-    // Check if layout adapts to screen size
-    if (deviceInfo.isMobile) {
-      // On mobile, check if words list is stacked vertically
-      const wordsList = page.locator('[data-testid="words-list"]');
-      await expect(wordsList).toBeVisible();
-    } else if (deviceInfo.isTablet) {
-      // On tablet, check if layout is responsive
-      const wordsList = page.locator('[data-testid="words-list"]');
-      await expect(wordsList).toBeVisible();
-    } else {
-      // On desktop, check if layout uses full width
-      const wordsList = page.locator('[data-testid="words-list"]');
-      await expect(wordsList).toBeVisible();
-    }
+    // Verify words list is always visible regardless of device
+    const wordsList = page.locator('[data-testid="words-list"]');
+    await expect(wordsList).toBeVisible();
+
+    // Verify device info is properly detected
+    expect(typeof deviceInfo.isMobile).toBe('boolean');
+    expect(typeof deviceInfo.isTablet).toBe('boolean');
 
     await takeScreenshot(page, 'responsive-words', context);
   });
 
-  test('should handle offline scenarios gracefully', async ({ page, context }) => {
+  test('should keep page functional when going offline', async ({ page, context }) => {
     await page.goto('/app');
     await waitForPageLoad(page);
+
+    // Verify page is functional before going offline
+    const body = page.locator('body');
+    await expect(body).toBeVisible();
 
     // Simulate offline
     await page.context().setOffline(true);
 
-    // Try to add a word
-    const addWordButton = page.locator('button:has-text("Add"), [data-testid="add-word"]');
-    if (await addWordButton.isVisible()) {
-      await addWordButton.click();
-      const wordInput = page.locator('input[name="word"], [data-testid="add-word"]');
-      if (await wordInput.isVisible()) {
-        await wordInput.fill('offline-test');
-      }
-    }
-
-    // Should show offline message or queue the action
-    const offlineMessage = page.locator('[data-testid="offline"], .offline-message');
-    if (await offlineMessage.isVisible()) {
-      await expect(offlineMessage).toBeVisible();
-    }
+    // Verify page remains visible and functional offline
+    await expect(body).toBeVisible();
 
     // Go back online
     await page.context().setOffline(false);
+
+    // Verify page is still functional after reconnecting
+    await expect(body).toBeVisible();
 
     await takeScreenshot(page, 'offline-handling', context);
   });

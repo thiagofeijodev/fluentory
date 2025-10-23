@@ -8,21 +8,25 @@
  */
 export async function waitForPageLoad(page) {
   try {
-    // Wait for network to be idle (no requests for 500ms)
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
-  } catch {
-    console.log('Network idle timeout, continuing...');
-  }
-
-  try {
     // Wait for DOM content to be loaded
     await page.waitForLoadState('domcontentloaded', { timeout: 10000 });
   } catch {
     console.log('DOM content loaded timeout, continuing...');
   }
 
-  // Additional wait for React components to render
-  await page.waitForTimeout(1000);
+  try {
+    // Wait for all network requests to complete
+    await page.waitForLoadState('load', { timeout: 10000 });
+  } catch {
+    console.log('Page load timeout, continuing...');
+  }
+
+  // Wait for React components to render by checking for a specific element
+  try {
+    await page.locator('body').waitFor({ timeout: 5000 });
+  } catch {
+    console.log('Body element timeout, continuing...');
+  }
 }
 
 /**

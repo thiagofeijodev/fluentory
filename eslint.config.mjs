@@ -2,6 +2,9 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import testingLibrary from 'eslint-plugin-testing-library';
+import jestDom from 'eslint-plugin-jest-dom';
+import playwright from 'eslint-plugin-playwright';
 import prettier from 'eslint-config-prettier';
 import eslint from '@eslint/js';
 
@@ -10,6 +13,13 @@ const config = [
   eslint.configs.recommended,
   react.configs.flat.recommended,
   prettier,
+  {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
 
   // Configuration files (including this one)
   {
@@ -75,14 +85,9 @@ const config = [
     },
   },
 
-  // Test files configuration
+  // Jest/React Testing Library test files configuration
   {
-    files: [
-      'src/**/*.{test,spec}.{js,jsx}',
-      'src/**/__tests__/**/*.{js,jsx}',
-      '.config/tests/*.{js,ts,mjs}',
-      'tests/**/*.{js,jsx}',
-    ],
+    files: ['src/**/*.{test,spec}.{js,jsx}', 'src/**/__tests__/**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -100,9 +105,12 @@ const config = [
     plugins: {
       react,
       'react-hooks': reactHooks,
+      'testing-library': testingLibrary,
+      'jest-dom': jestDom,
     },
     settings: {
       react: { version: 'detect' },
+      'testing-library/utils-module': '@testing-library/jest-dom',
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
@@ -110,6 +118,55 @@ const config = [
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'error',
       'no-undef': 'off', // Jest globals are handled by globals.jest
+      // Testing Library rules - using recommended config
+      ...testingLibrary.configs.react.rules,
+      // Jest DOM rules - using recommended config
+      ...jestDom.configs.recommended.rules,
+    },
+  },
+
+  // Playwright E2E test files configuration
+  {
+    files: ['tests/**/*.{js,jsx}', 'tests/**/*.spec.{js,jsx}', 'tests/**/*.test.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+        ...globals.jest,
+        process: 'readonly',
+      },
+    },
+    plugins: {
+      playwright,
+    },
+    rules: {
+      // Use recommended Playwright rules
+      ...playwright.configs.recommended.rules,
+      // Custom overrides - make some rules less strict for existing code
+      'playwright/max-nested-describe': ['error', { max: 3 }],
+      'playwright/no-skipped-test': 'warn',
+      'playwright/no-conditional-in-test': 'warn',
+      'playwright/no-conditional-expect': 'warn',
+      'playwright/no-wait-for-timeout': 'warn',
+      'playwright/expect-expect': 'warn',
+    },
+  },
+
+  // Other test configuration files
+  {
+    files: ['.config/tests/*.{js,ts,mjs}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        process: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
     },
   },
 
