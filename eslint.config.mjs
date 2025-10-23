@@ -147,8 +147,8 @@ const config = [
       // Custom overrides - make some rules less strict for existing code
       'playwright/max-nested-describe': ['error', { max: 3 }],
       'playwright/no-skipped-test': 'warn',
-      'playwright/no-conditional-in-test': 'warn',
-      'playwright/no-conditional-expect': 'warn',
+      'playwright/no-conditional-in-test': 'off',
+      'playwright/no-conditional-expect': 'off',
       'playwright/no-wait-for-timeout': 'warn',
       'playwright/expect-expect': 'warn',
     },

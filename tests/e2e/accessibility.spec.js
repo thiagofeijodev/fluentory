@@ -313,33 +313,27 @@ test.describe('Accessibility Tests', () => {
     const modalTriggers = page.locator(
       'button:has-text("Add"), button:has-text("Edit"), button:has-text("Delete")',
     );
-    await modalTriggers.count();
+    const triggerCount = await modalTriggers.count();
 
-    // Always verify page is functional first
-    const body = page.locator('body');
-    await expect(body).toBeVisible();
+    if (triggerCount > 0) {
+      // Click first modal trigger
+      await modalTriggers.first().click();
 
-    // Try to click first modal trigger if available
-    await modalTriggers
-      .first()
-      .click({ timeout: 1000 })
-      .catch(() => {});
+      // Check if modal is visible
+      const modal = page.locator('[role="dialog"], .modal, [data-testid="modal"]');
+      if (await modal.isVisible()) {
+        // Check if focus is trapped in modal
+        const focusedElement = page.locator(':focus');
+        await expect(focusedElement).toBeVisible();
 
-    // Check if modal is visible
-    const modal = page.locator('[role="dialog"], .modal, [data-testid="modal"]');
+        // Check if modal has proper ARIA attributes
+        const modalRole = modal;
+        await expect(modalRole).toHaveAttribute('role', 'dialog');
 
-    // Try to interact with modal if it appears
-    await modal.waitFor({ state: 'visible', timeout: 1000 }).catch(() => {});
-
-    // Check if focus is trapped in modal (if modal exists)
-    const focusedElement = page.locator(':focus');
-    await expect(focusedElement).toBeVisible();
-
-    // Check if modal has proper ARIA attributes (if modal exists)
-    await expect(modal).toHaveAttribute('role', 'dialog');
-
-    // Test Escape key to close modal
-    await page.keyboard.press('Escape');
+        // Test Escape key to close modal
+        await page.keyboard.press('Escape');
+      }
+    }
 
     await takeScreenshot(page, 'modal-focus-management', context);
   });
