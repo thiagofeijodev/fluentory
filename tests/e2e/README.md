@@ -60,7 +60,7 @@ npm run test:e2e:install
 
 ```bash
 # Run all tests on all devices
-npm run test:e2e:all-devices
+npm run test:e2e
 
 # Run tests with UI (interactive mode)
 npm run test:e2e:ui
@@ -244,7 +244,7 @@ Example GitHub Actions workflow:
 
 ```yaml
 - name: Run E2E Tests
-  run: npm run test:e2e:all-devices
+  run: npm run test:e2e
 
 - name: Upload Test Results
   uses: actions/upload-artifact@v3
