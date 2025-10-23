@@ -5,6 +5,8 @@ if (fs.existsSync('.env.development.local')) {
   require('dotenv').config({ path: '.env.development.local' });
 }
 
+const baseURL = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3001}`;
+
 const reporter = !process.env.CI
   ? [['html']]
   : [
@@ -24,7 +26,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter,
   use: {
-    baseURL: process.env.BASE_URL,
+    baseURL: baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -37,7 +39,6 @@ module.exports = defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    /*
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -55,14 +56,6 @@ module.exports = defineConfig({
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
-    },
-    {
-      name: 'Mobile Safari (iPhone SE)',
-      use: { ...devices['iPhone SE'] },
-    },
-    {
-      name: 'Mobile Chrome (Galaxy S5)',
-      use: { ...devices['Galaxy S III'] },
     },
 
     // Tablet devices
@@ -83,29 +76,12 @@ module.exports = defineConfig({
         viewport: { width: 1920, height: 1080 },
       },
     },
-    {
-      name: 'Desktop Chrome (4K)',
-      use: {
-        ...devices['Desktop Chrome'],
-        viewport: { width: 3840, height: 2160 },
-      },
-    },
-
-    // Small screens
-    {
-      name: 'Small Desktop',
-      use: {
-        ...devices['Desktop Chrome'],
-        viewport: { width: 1024, height: 768 },
-      },
-    },
-    */
   ],
 
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run start',
-    url: 'http://localhost:3001',
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
