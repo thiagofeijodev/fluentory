@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "node --env-file=.env.development.local .config/rspack/rspack.dev.mjs",
+    "start:ci": "node .config/rspack/rspack.dev.mjs",
     "build": "rspack --config .config/rspack/rspack.prod.mjs",
     "analyzer": "rspack build --analyze --mode development --config .config/rspack/rspack.prod.mjs",
     "lint": "eslint 'src/**/*.{js,jsx}' --max-warnings 0",

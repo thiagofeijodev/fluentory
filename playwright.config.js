@@ -1,8 +1,11 @@
 const fs = require('fs');
 const { defineConfig, devices } = require('@playwright/test');
 
-if (fs.existsSync('.env.development.local')) {
+try {
+  fs.existsSync('.env.development.local');
   require('dotenv').config({ path: '.env.development.local' });
+} catch {
+  console.log('No .env.development.local file found');
 }
 
 const baseURL = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3001}`;
@@ -80,7 +83,7 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run start',
+    command: process.env.CI ? 'npm run start:ci' : 'npm run start',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
