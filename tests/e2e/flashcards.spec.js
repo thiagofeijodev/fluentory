@@ -47,7 +47,7 @@ test.describe('Flashcards Study Mode', () => {
 
     // Wait for loading to finish if present
     if (hasLoading) {
-      await page.waitForTimeout(2000); // Wait for loading to complete
+      await loadingSpinner.waitFor({ state: 'hidden', timeout: 5000 });
     }
 
     // After loading, there should be either flashcards or empty state
