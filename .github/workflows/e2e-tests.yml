@@ -32,7 +32,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: npm run test:e2e:desktop
         env:
           REACT_APP_API_KEY: ${{ secrets.API_KEY }}
           REACT_APP_AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
@@ -42,6 +42,8 @@ jobs:
           REACT_APP_APPID: ${{ secrets.APPID }}
           REACT_APP_MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
           REACT_APP_MERRIAM_WEBSTER_API_KEY: ${{ secrets.REACT_APP_MERRIAM_WEBSTER_API_KEY }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           NODE_ENV: production
 
       - name: Upload test results

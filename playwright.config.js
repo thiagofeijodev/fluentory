@@ -2,8 +2,9 @@ const fs = require('fs');
 const { defineConfig, devices } = require('@playwright/test');
 
 try {
-  fs.existsSync('.env.development.local');
-  require('dotenv').config({ path: '.env.development.local' });
+  if (fs.existsSync('.env.development.local')) {
+    require('dotenv').config({ path: '.env.development.local' });
+  }
 } catch {
   console.log('No .env.development.local file found');
 }
