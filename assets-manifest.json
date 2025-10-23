@@ -1,4 +1,5 @@
 {
+  "CNAME": "CNAME",
   "_redirects": "_redirects",
   "assets/android-chrome-144x144.png": "assets/android-chrome-144x144.png",
   "assets/android-chrome-192x192.png": "assets/android-chrome-192x192.png",
@@ -113,14 +114,14 @@
   "index.html.gz": "index.html.gz",
   "logo.png": "logo.png",
   "logo.png.gz": "logo.png.gz",
-  "main.js": "static/main.d392020d4a0807f0.js",
+  "main.js": "static/main.ae122856634de7c6.js",
   "netlify.toml": "netlify.toml",
   "robots.txt": "robots.txt",
   "service-worker.js": "service-worker.js",
   "service-worker.js.gz": "service-worker.js.gz",
   "static/669.1a02bec7674e24eb.js": "static/669.1a02bec7674e24eb.js",
   "static/669.1a02bec7674e24eb.js.gz": "static/669.1a02bec7674e24eb.js.gz",
-  "static/main.d392020d4a0807f0.js.gz": "static/main.d392020d4a0807f0.js.gz",
-  "workbox-915e8d08.js": "workbox-915e8d08.js",
-  "workbox-915e8d08.js.gz": "workbox-915e8d08.js.gz"
+  "static/main.ae122856634de7c6.js.gz": "static/main.ae122856634de7c6.js.gz",
+  "workbox-74f2ef77.js": "workbox-74f2ef77.js",
+  "workbox-74f2ef77.js.gz": "workbox-74f2ef77.js.gz"
 }
